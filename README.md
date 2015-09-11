@@ -1,7 +1,7 @@
 # Reduxible
 
-Isomorphic(universal) Hot-loadable framework for [Redux](http://rackt.github.io/redux) applications.
-This project is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
+Isomorphic(universal) Hot-loadable framework for [Redux](http://rackt.github.io/redux) applications.  
+This project is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).  
 
 ```bash
 $ npm install --save reduxible
