@@ -1,12 +1,12 @@
 {
   "name": "reduxible",
-  "description": "Sample of an isomorphic (universal) webapp using react redux and hot reloading for Coupang",
+  "description": "The isomorphic (universal) framework for redux applications",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pitzcarraldo/reduxible"
+    "url": "git+https://github.com/Pitzcarraldo/reduxible.git"
   },
   "homepage": "https://github.com/Pitzcarraldo/reduxible",
   "keywords": [
@@ -81,5 +81,8 @@
   },
   "engines": {
     "node": ">=0.10.32"
+  },
+  "bugs": {
+    "url": "https://github.com/Pitzcarraldo/reduxible/issues"
   }
 }
