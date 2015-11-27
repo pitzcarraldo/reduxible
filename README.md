@@ -1,7 +1,7 @@
 # Reduxible
 
-Isomorphic(universal) Hot-loadable framework for [Redux](http://rackt.github.io/redux) applications.  
-This project is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).  
+Universal (Isomorphic) Hot-loadable framework for [Redux](http://rackt.github.io/redux) applications.
+This project is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
 
 ```bash
 $ npm install --save reduxible
@@ -26,7 +26,7 @@ Join the #reduxible channel of the [Reactiflux](http://reactiflux.com) Slack com
 ## Browser Compatibility
 
   * Todo...
-  
+
 ## License
 
 This software is free to use under the Minkyu Cho. MIT license.

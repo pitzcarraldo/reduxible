@@ -1,9 +1,10 @@
-node_modules/
-dist/
-.idea/
+.DS_Store
+node_modules
+dist
+lib
+coverage
+*.log
+.idea
 *.ipr
 *.iml
 *.iws
-webpack-stats.json
-.DS_Store
-npm-debug.log
