@@ -11,6 +11,10 @@ Join the #reduxible channel of the [Reactiflux](http://reactiflux.com) Slack com
 
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
 
+## Example
+
+  * You can see the example to know how to use Reduxible in [here](https://github.com/Pitzcarraldo/reduxible-example).
+
 ## Docs
 
   * Todo...
