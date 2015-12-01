@@ -57,7 +57,7 @@
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "history": "^1.13.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
