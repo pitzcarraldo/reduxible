@@ -1,13 +1,13 @@
 # Reduxible
 
-Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.  
-Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus to business code.  
-Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).  
-
 [![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/Pitzcarraldo/reduxible)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![npm downloads](https://img.shields.io/npm/dm/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
+
+Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.  
+Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus to business code.  
+Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).  
 
 ### Installation
 
