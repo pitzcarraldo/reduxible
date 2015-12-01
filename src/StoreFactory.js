@@ -9,7 +9,7 @@ export default class StoreFactory {
     this.useDevTools = options.config.useDevTools();
     this.middleware = options.middleware;
     this.reducer = options.reducer;
-    this.reload = options.reload;
+    this.reloader = options.reloader;
   }
 
   createStore(initialState = {}) {
@@ -26,15 +26,17 @@ export default class StoreFactory {
       finalCreateStore = appliedMiddleware(createStore);
     }
 
-    const reducer = combineReducers({ ...this.reducer, routing: routeReducer });
+    const reducer = this._combineReducers(...this.reducer);
     const store = finalCreateStore(reducer, initialState);
 
-    if (this.reload) {
-      this.reload(this.isDevelopment, store, (reducer) => {
-        return combineReducers({ ...reducer, routing: routeReducer });
-      });
+    if (this.reloader) {
+      this.reloader(store, this._combineReducers(reducer));
     }
 
     return store;
+  }
+
+  _combineReducers(reducer) {
+    return combineReducers({ ...reducer, routing: routeReducer });
   }
 }
