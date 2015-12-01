@@ -26,17 +26,15 @@ export default class StoreFactory {
       finalCreateStore = appliedMiddleware(createStore);
     }
 
-    const reducer = this._combineReducers(...this.reducer);
+    const reducer = combineReducers({ ...this.reducer, routing: routeReducer });
     const store = finalCreateStore(reducer, initialState);
 
     if (this.reloader) {
-      this.reloader(store, this._combineReducers(reducer));
+      this.reloader(store, (reducer) => {
+        return combineReducers({ ...reducer, routing: routeReducer });
+      });
     }
 
     return store;
-  }
-
-  _combineReducers(reducer) {
-    return combineReducers({ ...reducer, routing: routeReducer });
   }
 }
