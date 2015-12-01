@@ -24,8 +24,8 @@ Reduxible has peerDependencies like below.
   * Redux: ^3.0.4
   * React-Redux: ^4.0.0
   * Redux-DevTools: ^3.0.0-beta-3
-  * Redux-DevTools-Dock-Monitor: ^1.0.0-beta-3,
-  * Redux-DevTools-Log-Monitor: ^1.0.0-beta-3,
+  * Redux-DevTools-Dock-Monitor: ^1.0.0-beta-3
+  * Redux-DevTools-Log-Monitor: ^1.0.0-beta-3
   * Redux-Simple-Router: ^0.0.8
   * History: ^1.13.1
 
