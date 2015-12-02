@@ -19,7 +19,7 @@ export default class Reduxible {
     const store = this.storeFactory.createStore();
     const history = createMemoryHistory();
     const router = new ReduxibleRouter(this.routes, store, history);
-    return (req, res) => {
+    return (req, res, next) => {
       if(!this.config.isUniversal()) {
         return res.send(this._renderContainer('', store));
       }
@@ -39,6 +39,8 @@ export default class Reduxible {
 
         return res.send(this._renderContainer(component, store));
       });
+
+      next();
     };
   }
 

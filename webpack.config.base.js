@@ -7,7 +7,7 @@ module.exports = {
     ]
   },
   output: {
-    library: 'Redux',
+    library: 'Reduxible',
     libraryTarget: 'umd'
   },
   resolve: {
