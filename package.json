@@ -48,7 +48,7 @@
     "lint": "eslint src test",
     "test": "mocha --compilers js:babel/register --recursive",
     "check": "npm run lint && npm run test",
-    "build:lib": "babel src --out-dir lib",
+    "build:lib": "babel src --out-dir lib --source-maps",
     "build:umd": "webpack src/index.js dist/reduxible.js --config webpack.config.development.js",
     "build:umd:min": "webpack src/index.js dist/reduxible.min.js --config webpack.config.production.js",
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
