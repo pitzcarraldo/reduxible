@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import ReduxibleRouter from './ReduxibleRouter';
+import ReduxibleConfig from './Reduxibleconfig';
 import StoreFactory from './StoreFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 
 export default class Reduxible {
   constructor(options = {}) {
-    this.config = options.config;
+    this.config = new ReduxibleConfig(options.config);
     this.container = options.container;
     this.errorContainer = options.errorContainer;
     this.routes = options.routes;
-    this.storeFactory = new StoreFactory({ ...options });
+    this.storeFactory = new StoreFactory({ ...options, config: this.config });
     this.extras = options.extras;
   }
 
