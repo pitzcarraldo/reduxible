@@ -34,8 +34,8 @@ export default class ReduxibleRouter {
     return this._provide(this._getRouter());
   }
 
-  renderDevTools() {
-    return this._provide(this._getDevToolsRouter());
+  renderWithDevTools() {
+    return this._provide(this._getRouterWithDevTools());
   }
 
   _provide(children) {
@@ -50,7 +50,7 @@ export default class ReduxibleRouter {
     return <Router history={this.history} routes={this.routes}/>;
   }
 
-  _getDevToolsRouter() {
+  _getRouterWithDevTools() {
     return (
       <div>
         {this._getRouter()}

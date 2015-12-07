@@ -5,7 +5,6 @@ import DevTools from './DevTools';
 
 export default class StoreFactory {
   constructor(options) {
-    this.isDevelopment = options.config.isDevelopment();
     this.useDevTools = options.config.useDevTools();
     this.middleware = options.middleware;
     this.reducer = options.reducer;
