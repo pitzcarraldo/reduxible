@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import ReduxibleRouter from './ReduxibleRouter';
-import ReduxibleConfig from './Reduxibleconfig';
+import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
