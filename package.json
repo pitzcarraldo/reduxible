@@ -1,7 +1,7 @@
 {
   "name": "reduxible",
   "description": "The universal (isomorphic) framework for redux applications",
-  "version": "0.0.2-alpha2",
+  "version": "0.0.2-alpha.2",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "homepage": "https://github.com/Pitzcarraldo/reduxible",
