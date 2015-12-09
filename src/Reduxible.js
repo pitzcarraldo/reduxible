@@ -21,45 +21,56 @@ export default class Reduxible {
     const store = this.storeFactory.createStore();
     const history = createMemoryHistory();
     const router = new ReduxibleRouter(this.routes, store, history);
-    const extras = this.extras;
+    const render = (component) => {
+      const Html = this.container;
+      const extras = this.extras;
+
+      return '<!doctype html>\n' + ReactDOMServer.renderToString(
+        <Html component={component} store={store} {...extras} />);
+    };
+
     return (req, res, next) => {
-      if(!this.config.isUniversal()) {
-        return res.send(this._renderContainer({ component:'', store, ...extras }));
+      if (!this.config.isUniversal()) {
+        return res.send(render(''));
       }
 
       router.route(req.originalUrl, (error, redirectLocation, component)=> {
-        if (error) {
-          res.status(500);
-          if (this.errorContainer) {
-            return res.send(this._renderContainer({ component: this.errorContainer, store, ...extras }));
-          }
-          return res.send(this._renderContainer({ component: error, store, ...extras }));
-        }
-
         if (redirectLocation) {
           return res.redirect(redirectLocation.pathname);
         }
 
-        return res.send(this._renderContainer({ component, store, ...extras }));
+        let renderTarget = component;
+
+        if (error) {
+          res.status(500);
+
+          if (this.errorContainer) {
+            renderTarget = this.errorContainer;
+          } else {
+            renderTarget = error;
+          }
+        }
+
+        return res.send(render(renderTarget));
       });
 
       next();
     };
   }
 
-  _renderContainer(props) {
-    const Html = this.container;
-    return '<!doctype html>\n' + ReactDOMServer.renderToString(<Html {...props}/>);
-  }
-
   client(initialState, dest) {
     const store = this.storeFactory.createStore(initialState);
     const history = createBrowserHistory();
     const router = new ReduxibleRouter(this.routes, store, history);
+
     ReactDOM.render(router.render(), dest);
+
     if (this.config.useDevTools()) {
       window.React = React;
-      ReactDOM.render(router.renderDevTools(), dest);
+
+      // render twice is necessary.
+      // if not, React shows invalid server-client DOM sync error.
+      ReactDOM.render(router.renderWithDevTools(), dest);
     }
   }
 }
