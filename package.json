@@ -58,7 +58,7 @@
     "prepublish": "npm run clean && npm run build"
   },
   "dependencies": {
-    "history": "^1.13.1",
+    "history": "~1.13.x",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
@@ -70,7 +70,7 @@
     "redux-simple-router": "0.0.8"
   },
   "peerDependencies": {
-    "history": "^1.13.1",
+    "history": "~1.13.x",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
