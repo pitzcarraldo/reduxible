@@ -25,16 +25,16 @@ Reduxible has peer dependencies like below. So you can use Reduxible with these 
 
 ```json
   "peerDependencies": {
-      "history": "^1.13.1",
-      "react": "^0.14.3",
-      "react-dom": "^0.14.3",
-      "react-redux": "^4.0.0",
-      "react-router": "^1.0.0",
-      "redux": "^3.0.4",
-      "redux-devtools": "^3.0.0-beta-3",
-      "redux-devtools-dock-monitor": "^1.0.0-beta-3",
-      "redux-devtools-log-monitor": "^1.0.0-beta-3",
-      "redux-simple-router": "0.0.8"
+	    "history": "^1.17.0",
+	    "react": "^0.14.5",
+	    "react-dom": "^0.14.5",
+	    "react-redux": "^4.0.0",
+	    "react-router": "^1.0.3",
+	    "redux": "^3.0.4",
+	    "redux-devtools": "^3.0.0-beta-3",
+	    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+	    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+	    "redux-simple-router": "^1.0.2"
     }
 ```
 
