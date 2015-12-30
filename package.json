@@ -1,7 +1,7 @@
 {
   "name": "reduxible",
   "description": "The universal (isomorphic) framework for redux applications",
-  "version": "0.0.2-alpha.2",
+  "version": "0.0.2-alpha.3",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "homepage": "https://github.com/Pitzcarraldo/reduxible",
@@ -58,11 +58,11 @@
     "prepublish": "npm run clean && npm run build"
   },
   "dependencies": {
-    "history": "~1.13.x",
+    "history": "^1.17.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.3",
     "redux": "^3.0.4",
     "redux-devtools": "^3.0.0-beta-3",
     "redux-devtools-dock-monitor": "^1.0.0-beta-3",
@@ -70,11 +70,11 @@
     "redux-simple-router": "0.0.8"
   },
   "peerDependencies": {
-    "history": "~1.13.x",
+    "history": "^1.17.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.3",
     "redux": "^3.0.4",
     "redux-devtools": "^3.0.0-beta-3",
     "redux-devtools-dock-monitor": "^1.0.0-beta-3",
