@@ -4,4 +4,4 @@ export default Reduxible;
 export {
   createAction,
   createReducer
-}
+};
