@@ -132,6 +132,9 @@ This returns function that return action by action type.
 #### `createReducer(initialState: object, actions: object)`
 This makes redux reducer by actions.
 
+#### `combineRouteReducer(reducers)`
+Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
+
 ##### Reduxible Actions Example
 ```js
 //todo.js
@@ -147,11 +150,12 @@ export default createReducer({todo: {...}},actions);
 export const action = createAction(actions);
 
 //reducer.js
+import { combineRouteReducers }  from 'reduxible';
 import todo from './todo';
 
-export default {
+export default combineRouteReducers({
   todo
-}
+})
 
 //Initialize Reduxible
 import reducer from './reducer'
@@ -176,22 +180,6 @@ import { action } from './todo';
 class Todo extend Component {
 ...
 }
-```
-
-#### `combineRouteReducer(reducers)`
-
-Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
-
-```js
-// reducers.js
-import { combineRouteReducers }  from 'reduxible';
-import foo from './foo';
-import bar from './bar';
-
-export default combineRouteReducers({
-  foo,
-  bar
-});
 ```
 
 ## Example
