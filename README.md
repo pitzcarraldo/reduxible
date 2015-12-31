@@ -135,7 +135,7 @@ This makes redux reducer by actions.
 ##### Reduxible Actions Example
 ```js
 //todo.js
-import { createAction, createReducer } from 'Reduxible';
+import { createAction, createReducer } from 'reduxible';
 
 const actions = {
   'UPDATE_TODO' : {
