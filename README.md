@@ -89,9 +89,9 @@ const server = new Express();
 server.use(reduxible.server());
 ```
 
-##### `client(initialState, dest)`
-  * `initialState(object)`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
-  * `dest(element)`: An element to attached initialized Component.
+##### `client(initialState: object, dest: element)`
+  * `initialState`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
+  * `dest`: An element to attached initialized Component.
 
 ```js
 const reduxible = new Reduxible(options);
@@ -126,10 +126,10 @@ const actions = {
 
 You don't need to duplicate the type declaration in action creator, and don't need to spread previous state in reducer. These Utility function will cover repetitive tasks.
 
-#### `createAction(actions)`
+#### `createAction(actions: object)`
 This returns function that return action by action type.
 
-#### `createReducer(initialState, actions)`
+#### `createReducer(initialState: object, actions: object)`
 This makes redux reducer by actions.
 
 ##### Reduxible Actions Example
