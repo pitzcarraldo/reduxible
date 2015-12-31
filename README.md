@@ -178,6 +178,22 @@ class Todo extend Component {
 }
 ```
 
+#### `combineRouteReducer(reducers)`
+
+Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
+
+```js
+// reducers.js
+import { combineRouteReducers }  from 'reduxible';
+import foo from './foo';
+import bar from './bar';
+
+export default combineRouteReducers({
+  foo,
+  bar
+});
+```
+
 ## Example
 
   * You can see the example to know how to use Reduxible in [here](https://github.com/Pitzcarraldo/reduxible-example).
