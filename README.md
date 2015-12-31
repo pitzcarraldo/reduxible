@@ -46,20 +46,13 @@ A class for make the Reduxible instance. You can make Reduxible instance for ser
 
 #### `Options`
 
-##### `config` (required)
+##### `config(required)`
 An object to set up environment. All of types are boolean, and default value is false.
 
-###### `server`
-A flag to determine location where to used instance, server or client. If this flag is true, Reduxible instance will work for server.
-
-###### `development`
-A flag to determine environment. If this flag is true, some development functions will activated. (like Webpack Dev Server, DevTools...ETC)
-
-###### `universal`
-A flag to determine whether the Universal Application. If this flag is true, some universal functions will work. If you want to make Application to Single Page Application, set this to false.
-
-###### `devTools`
-A flag to determine whether to use Redux Dev Tools. Thin flag only works in development environment.
+  * `server`: A flag to determine location where to used instance, server or client. If this flag is true, Reduxible instance will work for server.
+  * `development`: A flag to determine environment. If this flag is true, some development functions will activated. (like Webpack Dev Server, DevTools...ETC)
+  * `universal`: A flag to determine whether the Universal Application. If this flag is true, some universal functions will work. If you want to make Application to Single Page Application, set this to false.
+  * `devTools`: A flag to determine whether to use Redux Dev Tools. Thin flag only works in development environment.
 
 ##### `container(component)`
 A React Component what make html layout. This have to return element like `<html>...</html>`
@@ -97,12 +90,8 @@ server.use(reduxible.server());
 ```
 
 ##### `client(initialState, dest)`
-
-###### `initialState(object)`
-A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: window.__state__)
-
-###### `dest(element)`
-An element to attached initialized Component.
+  * `initialState(object)`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
+  * `dest(element)`: An element to attached initialized Component.
 
 ```js
 const reduxible = new Reduxible(options);
