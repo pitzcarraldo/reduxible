@@ -54,28 +54,28 @@ An object to set up environment. All of types are boolean, and default value is 
   * `universal`: A flag to determine whether the Universal Application. If this flag is true, some universal functions will work. If you want to make Application to Single Page Application, set this to false.
   * `devTools`: A flag to determine whether to use Redux Dev Tools. Thin flag only works in development environment.
 
-##### `container(component)`
+##### `container: component`
 A React Component what make html layout. This have to return element like `<html>...</html>`
 
-##### `errorContainer(component)`
+##### `errorContainer: component`
 A React Component what will render when response is not succeed. If this is empty, Application will return raw error response with string.
 
-##### `routes(object)`
+##### `routes: object`
 A plain react-router configuration.([see this](https://github.com/rackt/react-router/blob/v1.0.3/docs/guides/basics/RouteConfiguration.md#alternate-configuration)).
 
-##### `middleware(array)`
+##### `middleware: array`
 An Array what contains redux middleware to use.
 
-##### `reducer(object)`
+##### `reducer: object`
 An object what contains redux reducer to use.
 
-##### `reloader(function)`
+##### `reloader: function`
 A Function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
 
-##### `extras(object)`
+##### `extras: object`
 A extra options what you want to use in Reduxible Application. This will inject to container by spread.
 
-#### Functions
+#### `Functions`
 
 If you make the Reduxible instance with this options, you can use below functions.
 
