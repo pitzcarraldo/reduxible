@@ -129,9 +129,8 @@ You don't need to duplicate the type declaration in action creator, and don't ne
 #### `createAction(actions)`
 This returns function that return action by action type.
 
-#### `createReducer(actions)`
+#### `createReducer(initialState, actions)`
 This makes redux reducer by actions.
-
 
 ##### Reduxible Actions Example
 ```js
@@ -144,7 +143,7 @@ const actions = {
   }
 }
 
-export default createReducer(actions);
+export default createReducer({todo: {...}},actions);
 export const action = createAction(actions);
 
 //reducer.js
