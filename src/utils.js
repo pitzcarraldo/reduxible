@@ -1,3 +1,10 @@
+import { combineReducers } from 'redux';
+import { routeReducer }  from 'redux-simple-router';
+
+export function combineRouteReducers(reducers) {
+  return combineReducers({ ...reducers, routing: routeReducer });
+}
+
 /**
  * @method
  * @param {Object} initialState - initial state for reducer
@@ -27,11 +34,13 @@ export function createReducer(initialState = {}, actions = {}) {
  */
 export function createAction(actions) {
   return (type) => {
-    return (payload) => {
+    return (params) => {
       return {
-        ...actions[type].creator(payload),
+        ...actions[type].creator(params),
         type
       };
     };
   };
 }
+
+

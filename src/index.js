@@ -1,7 +1,8 @@
 import Reduxible from './Reduxible';
-import { createAction, createReducer } from './creators';
+import { createAction, createReducer, combineRouteReducers } from './utils';
 export default Reduxible;
 export {
   createAction,
-  createReducer
+  createReducer,
+  combineRouteReducers
 };
