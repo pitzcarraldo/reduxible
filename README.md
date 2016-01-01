@@ -61,23 +61,23 @@ A React Component what make html layout. This have to return element like `<html
 A React Component what will render when response is not succeed. If this is empty, Application will return raw error response with string.
 
 ##### `routes: object`
-A plain react-router configuration.([see this](https://github.com/rackt/react-router/blob/v1.0.3/docs/guides/basics/RouteConfiguration.md#alternate-configuration)).
+A plain route of react-router.([see this](https://github.com/rackt/react-router/blob/1.0.x/docs/API.md#plainroute)).
 
 ##### `middleware: array`
-An Array what contains redux middleware to use.
+An array what contains redux middleware to use.
 
 ##### `reducer: object`
 An object what contains redux reducer to use.
 
 ##### `reloader: function`
-A Function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
+A function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
 
 ##### `extras: object`
 A extra options what you want to use in Reduxible Application. This will inject to container by spread.
 
 #### `Functions`
 
-If you make the Reduxible instance with this options, you can use below functions.
+If you make the Reduxible instance with above options, you can use below functions.
 
 ##### `server()`
 
@@ -98,9 +98,9 @@ const reduxible = new Reduxible(options);
 reduxible.client(window.__state__, document.getElementById('content'));
 ```
 
-### `Utility Function`
+### `Utility Functions`
 
-Reduxible provides some utility function to make redux actions and reducer simpler.
+Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions like below.
 
 ```js
