@@ -21,7 +21,7 @@ export function createReducer(initialState = {}, actions = {}) {
   return (state = initialState, dispatched) => {
     const action = actions[dispatched.type];
     if (action) {
-      return { ...state, ...action.reducer(dispatched.payload) };
+      return { ...state, ...action.reducer(dispatched.payload, state) };
     }
     return state;
   };
@@ -34,9 +34,9 @@ export function createReducer(initialState = {}, actions = {}) {
  */
 export function createAction(actions) {
   return (type) => {
-    return (params) => {
+    return (args) => {
       return {
-        ...actions[type].creator(params),
+        ...actions[type].creator(args),
         type
       };
     };
