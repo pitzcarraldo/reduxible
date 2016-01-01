@@ -105,7 +105,7 @@ You can define actions like below.
 
 ```js
 const actions = {
-  UPDATE_TODO: {
+  ADD_TODO: {
     creator: (todo) => {
       return {
         payload : {
@@ -113,10 +113,11 @@ const actions = {
         }
       };
     },
-    reducer: (payload) => {
+    reducer: (payload, state) => {
       const { todo } = payload;
+      const todos = [ ...state.todos, todo ];
       return {
-        todo
+        todos
       };
     }
   }
@@ -142,12 +143,12 @@ Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-route
 import { createAction, createReducer } from 'reduxible';
 
 const actions = {
-  'UPDATE_TODO' : {
+  ADD_TODO : {
     ...
   }
 }
 
-export default createReducer({todo: {...}},actions);
+export default createReducer({todos: []},actions);
 export const action = createAction(actions);
 ```
 
@@ -177,7 +178,7 @@ const reduxible = new Reduxible({
 import { action } from './todo';
 ...
 
-@connect({ todo: ... },{ updateTodo : action('UPDATE_TODO') })
+@connect(state => { todos: state.todo.todos },{ updateTodo : action('UPDATE_TODO') })
 class Todo extend Component {
 ...
 }

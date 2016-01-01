@@ -34,9 +34,13 @@ export function createReducer(initialState = {}, actions = {}) {
  */
 export function createAction(actions) {
   return (type) => {
-    return (args) => {
+    return (...args) => {
+      let action = {};
+      if (actions[type] && actions[type].creator) {
+        action = actions[type].creator(...args);
+      }
       return {
-        ...actions[type].creator(args),
+        ...action,
         type
       };
     };
