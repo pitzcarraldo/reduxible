@@ -98,7 +98,7 @@ const reduxible = new Reduxible(options);
 reduxible.client(window.__state__, document.getElementById('content'));
 ```
 
-### `Utility Functions`
+### Utility Functions
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions like below.
@@ -135,9 +135,10 @@ This makes redux reducer by actions.
 #### `combineRouteReducer(reducers)`
 Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
 
-##### Reduxible Actions Example
+### Example of Reduxible Actions
+
+##### `todo.js`
 ```js
-//todo.js
 import { createAction, createReducer } from 'reduxible';
 
 const actions = {
@@ -148,16 +149,20 @@ const actions = {
 
 export default createReducer({todo: {...}},actions);
 export const action = createAction(actions);
+```
 
-//reducer.js
+##### `reducer.js`
+```js
 import { combineRouteReducers }  from 'reduxible';
 import todo from './todo';
 
 export default combineRouteReducers({
   todo
 })
+```
 
-//Initialize Reduxible
+##### `your-application.js`
+```js
 import reducer from './reducer'
 
 const reduxible = new Reduxible({
@@ -165,18 +170,14 @@ const reduxible = new Reduxible({
   reducer
   ...
 })
+```
 
-//Todo.jsx
+##### `Todo.jsx`
+```js
 import { action } from './todo';
 ...
 
-@connect(
-{
-  todo: ...
-},
-{
-  updateTodo : action('UPDATE_TODO')
-})
+@connect({ todo: ... },{ updateTodo : action('UPDATE_TODO') })
 class Todo extend Component {
 ...
 }
