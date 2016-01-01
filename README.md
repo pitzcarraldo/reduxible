@@ -54,30 +54,30 @@ An object to set up environment. All of types are boolean, and default value is 
   * `universal`: A flag to determine whether the Universal Application. If this flag is true, some universal functions will work. If you want to make Application to Single Page Application, set this to false.
   * `devTools`: A flag to determine whether to use Redux Dev Tools. Thin flag only works in development environment.
 
-##### `container(component)`
+##### `container: component`
 A React Component what make html layout. This have to return element like `<html>...</html>`
 
-##### `errorContainer(component)`
+##### `errorContainer: component`
 A React Component what will render when response is not succeed. If this is empty, Application will return raw error response with string.
 
-##### `routes(object)`
-A plain react-router configuration.([see this](https://github.com/rackt/react-router/blob/v1.0.3/docs/guides/basics/RouteConfiguration.md#alternate-configuration)).
+##### `routes: object`
+A plain route of react-router.([see this](https://github.com/rackt/react-router/blob/1.0.x/docs/API.md#plainroute)).
 
-##### `middleware(array)`
-An Array what contains redux middleware to use.
+##### `middleware: array`
+An array what contains redux middleware to use.
 
-##### `reducer(object)`
+##### `reducer: object`
 An object what contains redux reducer to use.
 
-##### `reloader(function)`
-A Function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
+##### `reloader: function`
+A function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
 
-##### `extras(object)`
+##### `extras: object`
 A extra options what you want to use in Reduxible Application. This will inject to container by spread.
 
-#### Functions
+#### `Functions`
 
-If you make the Reduxible instance with this options, you can use below functions.
+If you make the Reduxible instance with above options, you can use below functions.
 
 ##### `server()`
 
@@ -89,18 +89,18 @@ const server = new Express();
 server.use(reduxible.server());
 ```
 
-##### `client(initialState, dest)`
-  * `initialState(object)`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
-  * `dest(element)`: An element to attached initialized Component.
+##### `client(initialState: object, dest: element)`
+  * `initialState`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
+  * `dest`: An element to attached initialized Component.
 
 ```js
 const reduxible = new Reduxible(options);
 reduxible.client(window.__state__, document.getElementById('content'));
 ```
 
-### `Utility Function`
+### Utility Functions
 
-Reduxible provides some utility function to make redux actions and reducer simpler.
+Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions like below.
 
 ```js
@@ -126,15 +126,19 @@ const actions = {
 
 You don't need to duplicate the type declaration in action creator, and don't need to spread previous state in reducer. These Utility function will cover repetitive tasks.
 
-#### `createAction(actions)`
+#### `createAction(actions: object)`
 This returns function that return action by action type.
 
-#### `createReducer(initialState, actions)`
+#### `createReducer(initialState: object, actions: object)`
 This makes redux reducer by actions.
 
-##### Reduxible Actions Example
+#### `combineRouteReducer(reducers)`
+Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
+
+### Example of Reduxible Actions
+
+##### `todo.js`
 ```js
-//todo.js
 import { createAction, createReducer } from 'reduxible';
 
 const actions = {
@@ -145,15 +149,20 @@ const actions = {
 
 export default createReducer({todo: {...}},actions);
 export const action = createAction(actions);
+```
 
-//reducer.js
+##### `reducer.js`
+```js
+import { combineRouteReducers }  from 'reduxible';
 import todo from './todo';
 
-export default {
+export default combineRouteReducers({
   todo
-}
+})
+```
 
-//Initialize Reduxible
+##### `your-application.js`
+```js
 import reducer from './reducer'
 
 const reduxible = new Reduxible({
@@ -161,37 +170,17 @@ const reduxible = new Reduxible({
   reducer
   ...
 })
+```
 
-//Todo.jsx
+##### `Todo.jsx`
+```js
 import { action } from './todo';
 ...
 
-@connect(
-{
-  todo: ...
-},
-{
-  updateTodo : action('UPDATE_TODO')
-})
+@connect({ todo: ... },{ updateTodo : action('UPDATE_TODO') })
 class Todo extend Component {
 ...
 }
-```
-
-#### `combineRouteReducer(reducers)`
-
-Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
-
-```js
-// reducers.js
-import { combineRouteReducers }  from 'reduxible';
-import foo from './foo';
-import bar from './bar';
-
-export default combineRouteReducers({
-  foo,
-  bar
-});
 ```
 
 ## Example
