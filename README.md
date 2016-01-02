@@ -104,7 +104,7 @@ reduxible.client(window.__state__, document.getElementById('content'));
 ### Utility Functions
 
 #### :warning: WARNING
-These functions only support one to one relation for action creator and reducer. But they can be related with many to many in basic Flux and Redux concepts. So if you want to make many to many relations for them, implement with pure redux functions. But these functions also gonna changes for support many to many.  
+These functions only support one to one relation for action creator and reducer. But they can be related with many to many in basic Flux and Redux concepts. So if you want to make many to many relations for them, implement with pure redux functions. But these functions also gonna changes for support many to many. (For detail, see [this issue](https://github.com/Pitzcarraldo/reduxible/issues).)
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions like below.
