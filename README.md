@@ -9,6 +9,9 @@ Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://
 Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus to business code.
 Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
 
+## :construction: CAUTION
+Reduxible is now under construction. So it is not ready to use for production. Many APIs are changing everday and there are a lot of pre-release version like '0.0.x-alpha.x'. I don't recommend to use it. But if you want to make this better with me, do anything that you want with Reduxible. I'm always waiting for pull requests and opinions by issue.
+
 ## Why Reduxible?
 
 React, Redux and other related things are already good enough to use directly. But some people (like me) only want to focus to application codes and don't want to spend time for make and sustain project base. So I wrapped base elements for React + Redux Application. If you use Reduxible, you only have to make and set Router, Middleware, Reducers and React Components to Reduxible. When then, you can run React + Redux App immediately. Also, it can be Universal App or Single Page App by config.
@@ -99,6 +102,9 @@ reduxible.client(window.__state__, document.getElementById('content'));
 ```
 
 ### Utility Functions
+
+#### :warning: WARNING
+These functions only support one to one relation for action creator and reducer. But they can be related with many to many in basic Flux and Redux concepts. So if you want to make many to many relations for them, implement with pure redux functions. But these functions also gonna changes for support many to many.  
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions like below.
