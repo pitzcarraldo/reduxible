@@ -6,6 +6,7 @@ import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
+import { serverMiddleware } from './middlerwares';
 
 export default class Reduxible {
   constructor(options = {}) {
@@ -17,22 +18,25 @@ export default class Reduxible {
     this.extras = options.extras;
   }
 
+  render(component, store) {
+    const Html = this.container;
+    const extras = this.extras;
+    return '<!doctype html>\n' +
+      ReactDOMServer.renderToString(
+        <Html component={component} store={store} {...extras} />
+      );
+  }
+
   server() {
-    const store = this.storeFactory.createStore();
-    const history = createMemoryHistory();
-    const router = new ReduxibleRouter(this.routes, store, history);
-    const render = (component) => {
-      const Html = this.container;
-      const extras = this.extras;
-
-      return '<!doctype html>\n' + ReactDOMServer.renderToString(
-        <Html component={component} store={store} {...extras} />);
-    };
-
     return (req, res, next) => {
       if (!this.config.isUniversal()) {
-        return res.send(render(''));
+        return res.send(this.render(''));
       }
+
+      this.storeFactory.middleware = [ serverMiddleware({ req, res, next }), ...this.storeFactory.middleware ];
+      const store = this.storeFactory.createStore();
+      const history = createMemoryHistory();
+      const router = new ReduxibleRouter(this.routes, store, history);
 
       router.route(req.originalUrl, (error, redirectLocation, component)=> {
         if (redirectLocation) {
@@ -51,7 +55,7 @@ export default class Reduxible {
           }
         }
 
-        return res.send(render(renderTarget));
+        return res.send(this.render(renderTarget, store));
       });
 
       next();
