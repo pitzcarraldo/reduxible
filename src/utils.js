@@ -8,10 +8,10 @@ export function combineRouteReducers(reducers) {
 /**
  * @method
  * @param {Object} initialState - initial state for reducer
- * @param {Object} actions - list of action
+ * @param {Object} reducers - list of reducers
  * @returns {Function} reducer - reducer
  */
-export function createReducer(initialState = {}, actions = {}) {
+export function createReducer(initialState = {}, reducers = []) {
   /**
    * @method
    * @param {Object} state - exist state
@@ -19,9 +19,11 @@ export function createReducer(initialState = {}, actions = {}) {
    * @returns {Object} state - reduced state
    */
   return (state = initialState, dispatched) => {
-    const action = actions[dispatched.type];
-    if (action) {
-      return { ...state, ...action.reducer(dispatched.payload, state) };
+    const toReduce = reducers.filter((reducer)=> {
+      return reducer.types.indexOf(dispatched.type) > -1;
+    });
+    for (let reducer of toReduce) {
+      state = { ...state, ...reducer.reduce(dispatched.payload, state) };
     }
     return state;
   };
@@ -36,8 +38,20 @@ export function createAction(actions) {
   return (type) => {
     return (...args) => {
       let action = {};
-      if (actions[type] && actions[type].creator) {
-        action = actions[type].creator(...args);
+      if (actions[type]) {
+        switch(typeof actions[type]) {
+          case 'function' : {
+            action = actions[type](...args);
+            break;
+          }
+          case 'object' : {
+            action = actions[type];
+            break;
+          }
+          default : {
+            action = { payload : actions[type] };
+          }
+        }
       }
       return {
         ...action,
@@ -46,5 +60,3 @@ export function createAction(actions) {
     };
   };
 }
-
-
