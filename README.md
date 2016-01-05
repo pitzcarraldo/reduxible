@@ -168,7 +168,7 @@ This returns function that return action by action type.
 #### `createReducer(initialState: object, actions: object)`
 This makes redux reducer by actions.
 
-#### `combineRouteReducer(reducers)`
+#### `combineRouteReducer(reducers: array)`
 Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
 
 ### Example of Reduxible Actions
