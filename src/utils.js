@@ -5,8 +5,6 @@ export function combineRouteReducers(reducers) {
   return combineReducers({ ...reducers, routing: routeReducer });
 }
 
-const REDUCERS = {};
-
 /**
  * @method
  * @param {Object} initialState - initial state for reducer
@@ -14,6 +12,8 @@ const REDUCERS = {};
  * @returns {Function} reducer - reducer
  */
 export function createReducer(initialState = {}, reducers = []) {
+  const REDUCERS = {};
+
   reducers.forEach((reducer) => {
     if (!reducer.types) {
       return;
@@ -22,14 +22,14 @@ export function createReducer(initialState = {}, reducers = []) {
       if (!REDUCERS[type]) {
         REDUCERS[type] = [];
       }
-      REDUCERS[type].push(reducer);
+      REDUCERS[type].push(reducer.reduce);
     });
   });
 
   return (state = initialState, action) => {
     if (REDUCERS[action.type]) {
-      REDUCERS[action.type].forEach((reducer)=> {
-        state = { ...reducer.reduce(action.payload, state) };
+      REDUCERS[action.type].forEach((reduce)=> {
+        state = { ...reduce(action.payload, state) };
       });
     }
     return state;
