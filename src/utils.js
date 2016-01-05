@@ -59,6 +59,11 @@ export function createAction(actions) {
             action = { payload: actions[type] };
         }
       }
+
+      if (typeof action === 'function') {
+        return action;
+      }
+
       return {
         ...action,
         type
