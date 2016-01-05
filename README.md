@@ -165,10 +165,10 @@ You don't need to duplicate the type declaration in action creator. These Utilit
 #### `createAction(actions: object)`
 This returns function that return action by action type.
 
-#### `createReducer(initialState: object, actions: object)`
+#### `createReducer(initialState: object, reducers: array)`
 This makes redux reducer by actions.
 
-#### `combineRouteReducer(reducers)`
+#### `combineRouteReducer(reducers: object)`
 Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-router#routereducer) of redux-simple-router. This can be used instead of combineReducers of redux.
 
 ### Example of Reduxible Actions
