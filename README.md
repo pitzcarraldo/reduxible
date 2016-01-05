@@ -103,35 +103,64 @@ reduxible.client(window.__state__, document.getElementById('content'));
 
 ### Utility Functions
 
+Pure Flux and Redux implement actions and reducers with switch statement. Sometimes it can make huge module and unmaintainable codes. So Reduxible provides some utility function for make it simpler actions and reducers. But application can be slow when initialization when using this functions. Because `createReducer` is build the dictionary of reducers when initialization for the runtime performance. If you want to best performance for all time, building actions and reducers with the standard Redux pattern can be better choice.
+
 #### :warning: WARNING
-These functions only support one to one relation for action creator and reducer. But they can be related with many to many in basic Flux and Redux concepts. So if you want to make many to many relations for them, implement with pure redux functions. But these functions also gonna changes for support many to many. (For detail, see [this issue](https://github.com/Pitzcarraldo/reduxible/issues).)
+Actions and Reducers can have M:N relationship. So they have to decoupled for the scalability. For detail, please read a [reference of the Redux](http://redux.js.org/docs/basics/index.html) before use these functions.
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
-You can define actions like below.
+You can define actions and reducers like below.
 
 ```js
 const actions = {
-  ADD_TODO: {
-    creator: (todo) => {
-      return {
-        payload : {
-          todo
-        }
-      };
-    },
-    reducer: (payload, state) => {
+  ADD_TODO: (todo) => {
+    return {
+      payload: {
+        todo
+      },
+      helper: true
+    };
+  },
+  REMOVE_TODO: (index) => {
+    return {
+      payload: {
+        index
+      },
+      helper: true
+    };
+  }
+};
+
+const reducers = [
+  {
+    types: ['ADD_TODO'],
+    reduce: (payload, state) => {
       const { todo } = payload;
-      const todos = [ ...state.todos, todo ];
+      const todos = [...state.todos, todo];
       return {
+        ...state,
+        todos
+      };
+    }
+  },
+  {
+    types: ['REMOVE_TODO'],
+    reduce: (payload, state) => {
+      const { index } = payload;
+      const todos = [...state.todos];
+      if (index > -1) {
+        todos.splice(index, 1);
+      }
+      return {
+        ...state,
         todos
       };
     }
   }
-};
-
+];
 ```
 
-You don't need to duplicate the type declaration in action creator, and don't need to spread previous state in reducer. These Utility function will cover repetitive tasks.
+You don't need to duplicate the type declaration in action creator. These Utility function will cover repetitive tasks and call action names.
 
 #### `createAction(actions: object)`
 This returns function that return action by action type.
@@ -148,14 +177,31 @@ Combine reducers with [routeReducer](https://github.com/rackt/redux-simple-route
 ```js
 import { createAction, createReducer } from 'reduxible';
 
-const actions = {
-  ADD_TODO : {
-    ...
+export const action = createAction({
+  ADD_TODO: (todo) => {
+    return {
+      payload: {
+        todo
+      },
+      helper: true
+    };
   }
-}
+});
 
-export default createReducer({todos: []},actions);
-export const action = createAction(actions);
+export default createReducer({todos: []},[
+  {
+    types: ['ADD_TODO'],
+    reduce: (payload, state) => {
+      const { todo } = payload;
+      const todos = [...state.todos, todo];
+      return {
+        ...state,
+        todos
+      };
+    }
+  },
+  ...
+]);
 ```
 
 ##### `reducer.js`

@@ -5,6 +5,8 @@ export function combineRouteReducers(reducers) {
   return combineReducers({ ...reducers, routing: routeReducer });
 }
 
+const REDUCERS = {};
+
 /**
  * @method
  * @param {Object} initialState - initial state for reducer
@@ -12,18 +14,23 @@ export function combineRouteReducers(reducers) {
  * @returns {Function} reducer - reducer
  */
 export function createReducer(initialState = {}, reducers = []) {
-  /**
-   * @method
-   * @param {Object} state - exist state
-   * @param {Object} dispatched - dispatched action
-   * @returns {Object} state - reduced state
-   */
-  return (state = initialState, dispatched) => {
-    const toReduce = reducers.filter((reducer)=> {
-      return reducer.types.indexOf(dispatched.type) > -1;
+  reducers.forEach((reducer) => {
+    if (!reducer.types) {
+      return;
+    }
+    reducer.types.forEach((type) => {
+      if (!REDUCERS[type]) {
+        REDUCERS[type] = [];
+      }
+      REDUCERS[type].push(reducer);
     });
-    for (let reducer of toReduce) {
-      state = { ...state, ...reducer.reduce(dispatched.payload, state) };
+  });
+
+  return (state = initialState, action) => {
+    if (REDUCERS[action.type]) {
+      REDUCERS[action.type].forEach((reducer)=> {
+        state = { ...reducer.reduce(action.payload, state) };
+      });
     }
     return state;
   };
@@ -39,7 +46,7 @@ export function createAction(actions) {
     return (...args) => {
       let action = {};
       if (actions[type]) {
-        switch(typeof actions[type]) {
+        switch (typeof actions[type]) {
           case 'function' : {
             action = actions[type](...args);
             break;
@@ -48,9 +55,8 @@ export function createAction(actions) {
             action = actions[type];
             break;
           }
-          default : {
-            action = { payload : actions[type] };
-          }
+          default :
+            action = { payload: actions[type] };
         }
       }
       return {
