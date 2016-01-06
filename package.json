@@ -93,7 +93,7 @@
     "isparta": "^3.0.3",
     "mocha": "^2.2.5",
     "rimraf": "^2.3.4",
-    "webpack": "^1.9.6"
+    "webpack": "^1.12.10"
   },
   "devEngines": {
     "node": "4.x || 5.x",
