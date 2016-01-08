@@ -1,7 +1,7 @@
 {
   "name": "reduxible",
   "description": "The universal (isomorphic) framework for redux applications",
-  "version": "0.0.2-alpha.10",
+  "version": "0.0.2-alpha.11",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "homepage": "https://github.com/Pitzcarraldo/reduxible",
@@ -57,18 +57,6 @@
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build"
   },
-  "dependencies": {
-    "history": "^1.17.0",
-    "react": "^0.14.5",
-    "react-dom": "^0.14.5",
-    "react-redux": "^4.0.0",
-    "react-router": "^1.0.3",
-    "redux": "^3.0.4",
-    "redux-devtools": "^3.0.0-beta-3",
-    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
-    "redux-devtools-log-monitor": "^1.0.0-beta-3",
-    "redux-simple-router": "^1.0.2"
-  },
   "peerDependencies": {
     "history": "^1.17.0",
     "react": "^0.14.5",
@@ -90,8 +78,18 @@
     "eslint-config-rackt": "^1.1.1",
     "eslint-plugin-react": "^3.6.3",
     "expect": "^1.8.0",
+    "history": "^1.17.0",
     "isparta": "^3.0.3",
     "mocha": "^2.2.5",
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5",
+    "react-redux": "^4.0.0",
+    "react-router": "^1.0.3",
+    "redux": "^3.0.4",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "redux-simple-router": "^1.0.2",
     "rimraf": "^2.3.4",
     "webpack": "^1.9.6"
   },
