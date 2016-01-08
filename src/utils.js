@@ -29,7 +29,7 @@ export function createReducer(initialState = {}, reducers = []) {
   return (state = initialState, action) => {
     if (REDUCERS[action.type]) {
       REDUCERS[action.type].forEach((reduce)=> {
-        state = { ...reduce(action.payload, state) };
+        state = { ...reduce(action, state) };
       });
     }
     return state;
