@@ -10,9 +10,9 @@ export default class StoreFactory {
     this.reloader = options.reloader;
   }
 
-  createStore(initialState = {}) {
+  createStore(initialState = {}, middleware = []) {
     let finalCreateStore;
-    let appliedMiddleware = applyMiddleware(...this.middleware);
+    let appliedMiddleware = applyMiddleware(...middleware, ...this.middleware);
 
     if (this.useDevTools) {
       finalCreateStore = compose(

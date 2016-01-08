@@ -33,8 +33,7 @@ export default class Reduxible {
         return res.send(this.render(''));
       }
 
-      this.storeFactory.middleware = [ serverMiddleware({ req, res, next }), ...this.storeFactory.middleware ];
-      const store = this.storeFactory.createStore();
+      const store = this.storeFactory.createStore({}, [ serverMiddleware({ req, res, next }) ]);
       const history = createMemoryHistory();
       const router = new ReduxibleRouter(this.routes, store, history);
 
