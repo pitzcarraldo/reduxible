@@ -91,7 +91,7 @@
     "redux-devtools-log-monitor": "^1.0.0-beta-3",
     "redux-simple-router": "^1.0.2",
     "rimraf": "^2.3.4",
-    "webpack": "^1.9.6"
+    "webpack": "^1.12.10"
   },
   "devEngines": {
     "node": "4.x || 5.x",
