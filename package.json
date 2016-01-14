@@ -67,7 +67,7 @@
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
-    "redux-simple-router": "^1.0.2"
+    "redux-simple-router": "^2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
