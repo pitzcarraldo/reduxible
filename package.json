@@ -1,7 +1,7 @@
 {
   "name": "reduxible",
   "description": "The universal (isomorphic) framework for redux applications",
-  "version": "0.0.2-alpha.11",
+  "version": "0.0.2-beta",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "homepage": "https://github.com/Pitzcarraldo/reduxible",
@@ -75,6 +75,7 @@
     "babel-eslint": "^4.1.0",
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "eslint": "^1.7.1",
@@ -94,7 +95,7 @@
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-simple-router": "^1.0.2",
     "rimraf": "^2.3.4",
-    "webpack": "^1.9.6"
+    "webpack": "^1.12.11"
   },
   "devEngines": {
     "node": "4.x || 5.x",
