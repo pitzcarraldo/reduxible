@@ -5,14 +5,14 @@ import DevTools from './DevTools';
 export default class StoreFactory {
   constructor(options) {
     this.useDevTools = options.config.useDevTools();
-    this.middleware = options.middleware;
-    this.reducer = options.reducer;
+    this.middlewares = options.middlewares;
+    this.reducers = options.reducers;
     this.reloader = options.reloader;
   }
 
-  createStore(initialState = {}, middleware = []) {
+  createStore(initialState = {}, middlewares = []) {
     let finalCreateStore;
-    let appliedMiddleware = applyMiddleware(...middleware, ...this.middleware);
+    let appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
 
     if (this.useDevTools) {
       finalCreateStore = compose(
@@ -24,7 +24,7 @@ export default class StoreFactory {
       finalCreateStore = appliedMiddleware(createStore);
     }
 
-    const store = finalCreateStore(this.reducer, initialState);
+    const store = finalCreateStore(this.reducers, initialState);
 
     if (this.reloader) {
       this.reloader(store);

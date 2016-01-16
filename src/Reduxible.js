@@ -6,7 +6,7 @@ import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
-import { serverMiddleware } from './middlerwares';
+import { contextMiddleware } from './middlerwares';
 
 export default class Reduxible {
   constructor(options = {}) {
@@ -32,8 +32,11 @@ export default class Reduxible {
       if (!this.config.isUniversal()) {
         return res.send(this.render(''));
       }
-
-      const store = this.storeFactory.createStore({}, [ serverMiddleware({ req, res, next }) ]);
+      const context = {
+        server: true,
+        ...{ req, res, next }
+      };
+      const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
       const history = createMemoryHistory();
       const router = new ReduxibleRouter(this.routes, store, history);
 
@@ -62,7 +65,10 @@ export default class Reduxible {
   }
 
   client(initialState, dest) {
-    const store = this.storeFactory.createStore(initialState);
+    const context = {
+      client: true
+    };
+    const store = this.storeFactory.createStore(initialState, [ contextMiddleware(context) ]);
     const history = createBrowserHistory();
     const router = new ReduxibleRouter(this.routes, store, history);
 
