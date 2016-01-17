@@ -66,11 +66,11 @@ A React Component what will render when response is not succeed. If this is empt
 ##### `routes: object`
 A plain route of react-router.([see this](https://github.com/rackt/react-router/blob/1.0.x/docs/API.md#plainroute)).
 
-##### `middleware: array`
-An array what contains redux middleware to use.
+##### `middlewares: array`
+An array what contains redux middlewares to use.
 
-##### `reducer: object`
-An object what contains redux reducer to use.
+##### `reducers: object`
+An object what contains redux reducers to use after combined.
 
 ##### `reloader: function`
 A function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
@@ -204,7 +204,7 @@ export default createReducer({todos: []},[
 ]);
 ```
 
-##### `reducer.js`
+##### `reducers.js`
 ```js
 import { combineRouteReducers }  from 'reduxible';
 import todo from './todo';
@@ -220,7 +220,7 @@ import reducer from './reducer'
 
 const reduxible = new Reduxible({
   ...
-  reducer
+  reducers
   ...
 })
 ```
