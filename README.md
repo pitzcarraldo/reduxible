@@ -216,7 +216,7 @@ export default combineRouteReducers({
 
 ##### `your-application.js`
 ```js
-import reducer from './reducer'
+import reducers from './reducers'
 
 const reduxible = new Reduxible({
   ...
