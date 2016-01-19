@@ -83,6 +83,7 @@
     "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
+    "es3ify-loader": "^0.1.0",
     "eslint": "^1.7.1",
     "eslint-config-rackt": "^1.1.1",
     "eslint-plugin-react": "^3.6.3",

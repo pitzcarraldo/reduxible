@@ -3,7 +3,17 @@
 module.exports = {
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ],
+    postLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'es3ify'
+      }
     ]
   },
   output: {
