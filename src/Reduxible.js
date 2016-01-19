@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
@@ -15,7 +16,8 @@ export default class Reduxible {
     this.errorContainer = options.errorContainer;
     this.routes = options.routes;
     this.storeFactory = new StoreFactory({ ...options, config: this.config });
-    this.extras = options.extras;
+    this.initialActions = options.initialActions || [];
+    this.extras = options.extras || {};
   }
 
   render(component, store) {
@@ -23,44 +25,48 @@ export default class Reduxible {
     const extras = this.extras;
     return '<!doctype html>\n' +
       ReactDOMServer.renderToString(
-        <Html component={component} store={store} {...extras} />
+        <Html component={component} store={store} { ...extras } />
       );
   }
 
   server() {
     return (req, res, next) => {
-      if (!this.config.isUniversal()) {
-        return res.send(this.render(''));
-      }
-      const context = {
-        server: true,
-        ...{ req, res, next }
-      };
-      const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
-      const history = createMemoryHistory();
-      const router = new ReduxibleRouter(this.routes, store, history);
-
-      router.route(req.originalUrl, (error, redirectLocation, component)=> {
-        if (redirectLocation) {
-          return res.redirect(redirectLocation.pathname);
+      return (async() => {
+        if (!this.config.isUniversal()) {
+          return res.send(this.render(''));
         }
+        const context = {
+          server: true,
+          ...{ req, res, next }
+        };
+        const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
+        const willDispatch = this.initialActions.map(action => store.dispatch(action()));
+        await Promise.all(willDispatch);
+        const history = createMemoryHistory();
+        const router = new ReduxibleRouter(this.routes, store, history);
 
-        let renderTarget = component;
-
-        if (error) {
-          res.status(500);
-
-          if (this.errorContainer) {
-            renderTarget = this.errorContainer;
-          } else {
-            renderTarget = error;
+        router.route(req.originalUrl, (error, redirectLocation, component)=> {
+          if (redirectLocation) {
+            return res.redirect(redirectLocation.pathname);
           }
-        }
 
-        return res.send(this.render(renderTarget, store));
-      });
+          let renderTarget = component;
 
-      next();
+          if (error) {
+            res.status(500);
+
+            if (this.errorContainer) {
+              renderTarget = this.errorContainer;
+            } else {
+              renderTarget = error;
+            }
+          }
+
+          return res.send(this.render(renderTarget, store));
+        });
+
+        next();
+      })();
     };
   }
 
