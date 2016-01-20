@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { persistState } from 'redux-devtools';
 
 export default class StoreFactory {
   constructor(options) {
@@ -13,11 +12,10 @@ export default class StoreFactory {
     let finalCreateStore;
     let appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
 
-    if (this.devTools) {
+    if (this.devTools && this.devTools.composers) {
       finalCreateStore = compose(
         appliedMiddleware,
-        this.devTools.instrument && this.devTools.instrument(),
-        persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+        ...this.devTools.composers
       )(createStore);
     } else {
       finalCreateStore = appliedMiddleware(createStore);
