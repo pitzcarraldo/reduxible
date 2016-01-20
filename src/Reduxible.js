@@ -10,11 +10,12 @@ import { contextMiddleware } from './middlerwares';
 
 export default class Reduxible {
   constructor(options = {}) {
-    this.config = new ReduxibleConfig(options.config);
+    this.config = new ReduxibleConfig({ ...options.config, devTools: options.devTools });
     this.container = options.container;
     this.errorContainer = options.errorContainer;
     this.routes = options.routes;
     this.storeFactory = new StoreFactory({ ...options, config: this.config });
+    this.devTools = options.devTools;
     this.extras = options.extras;
   }
 

@@ -1,4 +1,5 @@
 import expect from 'expect';
+import React from 'react';
 import ReduxibleConfig from '../src/ReduxibleConfig';
 
 describe('ReduxibleConfig', () => {
@@ -9,7 +10,7 @@ describe('ReduxibleConfig', () => {
 
   it('returns false if devTools is false', () => {
     const config = new ReduxibleConfig({
-      devTools: false
+      devTools: undefined
     });
     expect(config.useDevTools()).toBe(false);
   });
@@ -17,7 +18,7 @@ describe('ReduxibleConfig', () => {
   it('returns false if development is undefined', () => {
     const config = new ReduxibleConfig({
       server: false,
-      devTools: true
+      devTools: (<div></div>)
     });
     expect(config.useDevTools()).toBe(false);
   });

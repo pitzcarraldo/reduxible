@@ -45,7 +45,7 @@
   ],
   "scripts": {
     "clean": "rimraf lib dist coverage",
-    "lint": "eslint src test",
+    "lint": "eslint src test --fix",
     "test": "mocha",
     "check": "npm run lint && npm run test",
     "build:lib": "babel src --out-dir lib --source-maps",
@@ -64,9 +64,6 @@
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",
     "redux": "^3.0.4",
-    "redux-devtools": "^3.0.1",
-    "redux-devtools-dock-monitor": "^1.0.1",
-    "redux-devtools-log-monitor": "^1.0.1",
     "redux-simple-router": "^1.0.2"
   },
   "devDependencies": {
@@ -90,9 +87,6 @@
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",
     "redux": "^3.0.4",
-    "redux-devtools": "^3.0.1",
-    "redux-devtools-dock-monitor": "^1.0.1",
-    "redux-devtools-log-monitor": "^1.0.1",
     "redux-simple-router": "^1.0.2",
     "rimraf": "^2.3.4",
     "webpack": "^1.12.11"

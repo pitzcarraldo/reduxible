@@ -2,13 +2,13 @@ import React from 'react';
 import { Router, RoutingContext, match } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncReduxAndRouter } from 'redux-simple-router';
-import DevTools from './DevTools';
 
 export default class ReduxibleRouter {
-  constructor(routes, store, history) {
+  constructor(routes, store, history, devTools) {
     this.routes = routes;
     this.store = store;
     this.history = history;
+    this.devTools = devTools;
     syncReduxAndRouter(this.history, this.store);
   }
 
@@ -35,6 +35,9 @@ export default class ReduxibleRouter {
   }
 
   renderWithDevTools() {
+    if(!this.devTools) {
+      return this.render();
+    }
     return this._provide(this._getRouterWithDevTools());
   }
 
@@ -51,6 +54,7 @@ export default class ReduxibleRouter {
   }
 
   _getRouterWithDevTools() {
+    const DevTools = this.devTools;
     return (
       <div>
         {this._getRouter()}
