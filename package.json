@@ -93,7 +93,7 @@
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
-    "redux-simple-router": "^1.0.2",
+    "redux-simple-router": "^2.0.4",
     "rimraf": "^2.3.4",
     "webpack": "^1.12.11"
   },
