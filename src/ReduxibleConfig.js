@@ -27,6 +27,6 @@ export default class ReduxibleConfig {
   }
 
   useDevTools() {
-    return this.isClient() && this.isDevelopment() && this.devTools ? true: false;
+    return this.isClient() && this.isDevelopment() && this.devTools ? true : false;
   }
 }

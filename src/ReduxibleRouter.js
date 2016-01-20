@@ -1,6 +1,8 @@
 import React from 'react';
-import { Router, RoutingContext, match } from 'react-router';
-import { Provider } from 'react-redux';
+import Router from 'react-router/lib/Router';
+import RoutingContext from 'react-router/lib/RoutingContext';
+import match from 'react-router/lib/match';
+import Provider from 'react-redux/lib/components/Provider';
 import { syncReduxAndRouter } from 'redux-simple-router';
 
 export default class ReduxibleRouter {
@@ -23,7 +25,7 @@ export default class ReduxibleRouter {
       }
 
       if (renderProps) {
-        return callback(null, null, this._provide(<RoutingContext {...renderProps} />));
+        return callback(null, null, this.provide(<RoutingContext {...renderProps} />));
       }
 
       return callback();
@@ -31,17 +33,17 @@ export default class ReduxibleRouter {
   }
 
   render() {
-    return this._provide(this._getRouter());
+    return this.provide(this.getRouter());
   }
 
   renderWithDevTools() {
     if(!this.devTools) {
       return this.render();
     }
-    return this._provide(this._getRouterWithDevTools());
+    return this.provide(this.getRouterWithDevTools());
   }
 
-  _provide(children) {
+  provide(children) {
     return (
       <Provider store={this.store} key="provider">
         {children}
@@ -49,15 +51,15 @@ export default class ReduxibleRouter {
     );
   }
 
-  _getRouter() {
+  getRouter() {
     return <Router history={this.history} routes={this.routes}/>;
   }
 
-  _getRouterWithDevTools() {
+  getRouterWithDevTools() {
     const DevTools = this.devTools;
     return (
       <div>
-        {this._getRouter()}
+        {this.getRouter()}
         <DevTools/>
       </div>
     );

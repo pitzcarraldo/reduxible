@@ -1,4 +1,6 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import createStore from 'redux/lib/createStore';
+import applyMiddleware from 'redux/lib/utils/applyMiddleware';
+import compose from 'redux/lib/utils/compose';
 
 export default class StoreFactory {
   constructor(options) {
