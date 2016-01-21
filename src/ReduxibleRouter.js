@@ -37,9 +37,6 @@ export default class ReduxibleRouter {
   }
 
   renderWithDevTools() {
-    if(!this.devTools) {
-      return this.render();
-    }
     return this.provide(this.getRouterWithDevTools());
   }
 

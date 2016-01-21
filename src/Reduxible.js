@@ -10,12 +10,12 @@ import { contextMiddleware } from './middlerwares';
 
 export default class Reduxible {
   constructor(options = {}) {
-    this.config = new ReduxibleConfig({ ...options.config, devTools: options.devTools });
+    this.config = new ReduxibleConfig(options.config);
     this.container = options.container;
     this.errorContainer = options.errorContainer;
-    this.routes = options.routes;
-    this.storeFactory = new StoreFactory({ ...options, config: this.config });
     this.devTools = options.devTools;
+    this.routes = options.routes;
+    this.storeFactory = new StoreFactory({ ...options, useDevTools: this.config.useDevTools() });
     this.extras = options.extras;
   }
 
@@ -39,7 +39,7 @@ export default class Reduxible {
       };
       const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
       const history = createMemoryHistory();
-      const router = new ReduxibleRouter(this.routes, store, history);
+      const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
 
       router.route(req.originalUrl, (error, redirectLocation, component)=> {
         if (redirectLocation) {
@@ -71,7 +71,7 @@ export default class Reduxible {
     };
     const store = this.storeFactory.createStore(initialState, [ contextMiddleware(context) ]);
     const history = createBrowserHistory();
-    const router = new ReduxibleRouter(this.routes, store, history);
+    const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
 
     ReactDOM.render(router.render(), dest);
 

@@ -4,20 +4,21 @@ import compose from 'redux/lib/utils/compose';
 
 export default class StoreFactory {
   constructor(options) {
-    this.devTools = options.devTools;
     this.middlewares = options.middlewares;
     this.reducers = options.reducers;
     this.reloader = options.reloader;
+    this.devTools = options.devTools;
+    this.useDevTools = options.useDevTools;
   }
 
   createStore(initialState = {}, middlewares = []) {
     let finalCreateStore;
     let appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
 
-    if (this.devTools && this.devTools.composers) {
+    if (this.useDevTools && this.devTools) {
       finalCreateStore = compose(
         appliedMiddleware,
-        ...this.devTools.composers
+        ...this.devTools.composers()
       )(createStore);
     } else {
       finalCreateStore = appliedMiddleware(createStore);
