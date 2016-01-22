@@ -43,7 +43,7 @@ export default class Reduxible {
         const willDispatch = this.initialActions.map(action => store.dispatch(action()));
         await Promise.all(willDispatch);
         const history = createMemoryHistory();
-        const router = new ReduxibleRouter(this.routes, store, history);
+        const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
 
         router.route(req.originalUrl, (error, redirectLocation, component)=> {
           if (redirectLocation) {
@@ -80,7 +80,7 @@ export default class Reduxible {
 
     ReactDOM.render(router.render(), dest);
 
-    if (this.config.useDevTools()) {
+    if (this.config.useDevTools() && this.devTools) {
       window.React = React;
 
       // render twice is necessary.
