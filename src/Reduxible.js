@@ -40,7 +40,7 @@ export default class Reduxible {
           ...{ req, res, next }
         };
         const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
-        const willDispatch = this.initialActions.map(action => store.dispatch(action()));
+        const willDispatch = this.initialActions.map(action => store.dispatch(action));
         await Promise.all(willDispatch);
         const history = createMemoryHistory();
         const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
