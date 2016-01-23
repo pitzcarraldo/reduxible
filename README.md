@@ -19,10 +19,8 @@ Reduxible is now under construction. So it is not ready to use for production. M
 
 React, Redux and other related things are already good enough to use directly. But some people (like me) only want to focus to application codes and don't want to spend time for make and sustain project base. So I wrapped base elements for React + Redux Application. If you use Reduxible, you only have to make and set Router, Middleware, Reducers and React Components to Reduxible. When then, you can run React + Redux App immediately. Also, it can be Universal App or Single Page App by config.
 
-### Wee Need Long-Term Services!
-
-The environment of React and Redux is changing very quickly every day. There are too many related libraries and APIs of those are changed frequently. But for making real products, we need stable and verified stuff. Reduxible provides required modules that have many references for make universal application with React and Redux by peer dependencies. So you can make React + Redux application immediately just add Reduxible with dependencies, and also can update dependencies for the minor update.
-Reduxible will provides unchanging API by wrapping that modules and will not update except when those have critical bugs. Therefore, you can only focus to make functions your application without fixing integration codes on your application. Reduxible will provide Long-Term Environment for React + Redux application.
+### We Need Long-Term Services!
+The environment of React and Redux is changing very quickly every day. There are too many related libraries and APIs of those are changing frequently. But for making real products, we need stable and verified stuff. Reduxible provides required modules that have many references for make universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provides fixed API by wrapping that modules and will not update except when those have critical bugs. Therefore, you can only focus to make functions your application without modifying integration codes on your application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
 
 ## Installation
 
@@ -125,7 +123,7 @@ reduxible.client(window.__state__, document.getElementById('content'));
 
 ### Utility Functions
 
-Pure Flux and Redux implement actions and reducers with switch statement. Sometimes it can make huge module and unmaintainable codes. So Reduxible provides some utility function for make it simpler actions and reducers. But application can be slow when initialization when using this functions. Because `createReducer` is build the dictionary of reducers when initialization for the runtime performance. If you want to best performance for all time, building actions and reducers with the standard Redux pattern can be better choice.
+Pure Flux and Redux implement actions and reducers with switch statement. Sometimes it can make huge modules and unmaintainable codes. So Reduxible provides some utility function for make it simpler actions and reducers. But application can be slow when initialization when using this functions. Because `createReducer` is build the dictionary of reducers when initialization for the runtime performance. If you want to best performance for all time, building actions and reducers with the standard Redux pattern can be better choice.
 
 #### :warning: WARNING
 
