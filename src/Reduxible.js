@@ -20,53 +20,81 @@ export default class Reduxible {
     this.extras = options.extras || {};
   }
 
+  server() {
+    return (req, res, next) => {
+      (async ()=> {
+        try {
+          if (!this.config.isUniversal()) {
+            return res.send(this.render(''));
+          }
+
+          const context = {
+            server: true,
+            ...{ req, res, next }
+          };
+
+          const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
+          await this.preInitialize(store);
+
+          const history = createMemoryHistory();
+          const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
+
+          return router.route(req.originalUrl, this.serverRoute(res, store));
+        } catch (error) {
+          /* eslint-disable no-console */
+          console.error('Server Side Rendering was Failed. Render Empty View.', error.stack);
+          return res.send(this.render(''));
+        }
+      })();
+    };
+  }
+
+  async preInitialize(store) {
+    try {
+      const willDispatch = this.initialActions.map(action => store.dispatch(action));
+      await Promise.all(willDispatch);
+    } catch (error) {
+      /* eslint-disable no-console */
+      console.error('Pre-initialization was Failed. Render With InitialStates', error.stack);
+    }
+  }
+
   render(component, store) {
-    const Html = this.container;
+    try {
+      const Html = this.container;
+      const extras = this.extras;
+      return '<!doctype html>\n' +
+        ReactDOMServer.renderToString(
+          <Html component={component} store={store} { ...extras } />
+        );
+    } catch (error) {
+      return this.renderError(error);
+    }
+  }
+
+  renderError(error) {
+    if (!this.errorContainer) {
+      return error.stack;
+    }
+
+    const Error = this.errorContainer;
     const extras = this.extras;
     return '<!doctype html>\n' +
       ReactDOMServer.renderToString(
-        <Html component={component} store={store} { ...extras } />
+        <Error error={error} { ...extras } />
       );
   }
 
-  server() {
-    return (req, res, next) => {
-      return (async() => {
-        if (!this.config.isUniversal()) {
-          return res.send(this.render(''));
-        }
-        const context = {
-          server: true,
-          ...{ req, res, next }
-        };
-        const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
-        const willDispatch = this.initialActions.map(action => store.dispatch(action));
-        await Promise.all(willDispatch);
-        const history = createMemoryHistory();
-        const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
-
-        router.route(req.originalUrl, (error, redirectLocation, component)=> {
-          if (redirectLocation) {
-            return res.redirect(redirectLocation.pathname);
-          }
-
-          let renderTarget = component;
-
-          if (error) {
-            res.status(500);
-
-            if (this.errorContainer) {
-              renderTarget = this.errorContainer;
-            } else {
-              renderTarget = error;
-            }
-          }
-
-          return res.send(this.render(renderTarget, store));
-        });
-
-        next();
-      })();
+  serverRoute(res, store) {
+    return (error, redirectLocation, component) => {
+      if (redirectLocation) {
+        return res.redirect(redirectLocation.pathname);
+      }
+      if (error) {
+        res.status(500);
+        return res.send(this.renderError(error));
+      }
+      return res.send(this.render(component, store));
     };
   }
 
