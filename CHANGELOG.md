@@ -1,3 +1,7 @@
+## 0.0.2-beta.1
+
+* Refactored Reduxible.js for Handle Errors.
+
 ## 0.0.2-beta.0
 
 * Removed DevTools.
