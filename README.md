@@ -6,21 +6,21 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
 
 Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.
-Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus to business code.
+Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus on business codes.
 Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
 
 ## :construction: CAUTION: Work In Progress
 
-Reduxible is now under construction. So it is not ready to use for production. Many APIs are changing everday and there are a lot of pre-release version like '0.0.x-alpha.x'. I don't recommend to use it. But if you want to make this better with me, do anything that you want with Reduxible. I'm always waiting for pull requests and opinions by issue.
+Reduxible is now under construction so that it is not ready for production. Many APIs are changing everyday and it has a lot of pre-release versions like '0.0.x-alpha.x'. I could not recommend using it yet. But if you would like to make this better with me, please don't hesitate to send a small pull-request or just leave anything you want as an issue.
 
 ## Why Reduxible?
 
 ### Make Universal Application Easily
 
-React, Redux and other related things are already good enough to use directly. But some people (like me) only want to focus to application codes and don't want to spend time for make and sustain project base. So I wrapped base elements for React + Redux Application. If you use Reduxible, you only have to make and set Router, Middleware, Reducers and React Components to Reduxible. When then, you can run React + Redux App immediately. Also, it can be Universal App or Single Page App by config.
+React, Redux and other related assets are already good enough to use directly. But some people (like me) only want to focus on application codes and don't want to spend time for building and maintaining the project base. So I have wrapped base elements for React + Redux Application. If you use Reduxible, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
 
 ### We Need Long-Term Services!
-The environment of React and Redux is changing very quickly every day. There are too many related libraries and APIs of those are changing frequently. But for making real products, we need stable and verified stuff. Reduxible provides required modules that have many references for make universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provides fixed API by wrapping that modules and will not update except when those have critical bugs. Therefore, you can only focus to make functions your application without modifying integration codes on your application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
+The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuffs. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
 
 ## Installation
 
@@ -30,7 +30,7 @@ $ npm install --save reduxible
 
 ## Dependencies
 
-Reduxible has peer dependencies. So you have to add below dependencies to your project to use Reduxible and can use Reduxible with these modules with these versions or after. And Reduxible only support [express](https://github.com/strongloop/express/) for server-side for now.
+Reduxible has peer dependencies so that you need to add below dependencies to your project and its versions should be equal or higher. Currently, Reduxible supports [express](https://github.com/strongloop/express/) only for server-side.
 
 ```json
   "dependencies": {
@@ -48,30 +48,30 @@ Reduxible has peer dependencies. So you have to add below dependencies to your p
 
 ### `Reduxible(options)`
 
-A class for make the Reduxible instance. You can make Reduxible instance for server and client both by config. It needs some options parameters like below.
+A class to make a Reduxible instance. You can make a Reduxible instance for server, client, or both of them by configuration. It needs some option parameters below.
 
 #### `Options`
 
 ##### `config(required)`
 
-An object to set up environment. All of types are boolean, and default value is false.
+An object to set up the environment. All types are boolean, and the default value is false.
 
-* `server`: A flag to determine location where to used instance, server or client. If this flag is true, Reduxible instance will work for server.
-* `development`: A flag to determine environment. If this flag is true, some development functions will activated. (like Webpack Dev Server, DevTools...ETC)
-* `universal`: A flag to determine whether the Universal Application. If this flag is true, some universal functions will work. If you want to make Application to Single Page Application, set this to false.
-* `devTools`: A flag to determine whether to use Redux Dev Tools. Thin flag only works in development environment.
+* `server`: A flag to determine a location for the instance, server or client. If this flag is true, Reduxible instance will work for server.
+* `development`: A flag to determine an environment. If this flag is true, some development functions will be activated. (like Webpack Dev Server, DevTools, etc.)
+* `universal`: A flag to determine whether it is an Universal Application or not. If this flag is true, some universal functions will be enabled. If you want to make this Application to Single Page Application, set this to false.
+* `devTools`: A flag to determine whether to use Redux Dev Tools or not. Thin flag only works in development environment.
 
 ##### `container: component`
 
-A React Component what make html layout. This have to return element like `<html>...</html>`
+A React Component that makes a html layout. This returns elements like `<html>...</html>`
 
 ##### `errorContainer: component`
 
-A React Component what will render when response is not succeed. If this is empty, Application will return raw error response with string.
+A React Component that renders a response when it does not succeed. If this is empty, Application will return a raw error response with string.
 
 ##### `devTools: component`
 
-A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It has to return result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have function called `composers` that return DevTools.instrument() and debug-session. See [this example](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/helpers/DevTools.js).
+A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It returns a result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have a function called `composers` that returns DevTools.instrument() and debug-session. See [this example](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/helpers/DevTools.js).
 
 ##### `routes: object`
 
@@ -79,31 +79,31 @@ A plain route of react-router.([see this](https://github.com/rackt/react-router/
 
 ##### `middlewares: array`
 
-An array what contains redux middlewares to use.
+An array that contains redux middlewares.
 
 ##### `reducers: object`
 
-An object what contains redux reducers to use after combined.
+An object that contains redux reducers to be used after combining.
 
 ##### `reloader: function`
 
-A function what executed when hot module reloaded. A Reducer replacement codes has to placed in this.
+A function that executed when hot modules are reloaded. A Reducer replacement codes have to be placed in this.
 
 #### `initialActions: array`
 
-The List of Action that has to execute before render. They will reduce shortly after store created on the server. So states also will updated before connect with React Components. You can place async actions that need to invoke before first render to here. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/services/initialActions.js).
+The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/services/initialActions.js).
 
 ##### `extras: object`
 
-A extra options what you want to use in Reduxible Application. This will inject to container by spread.
+Extra options that you want to use in the Reduxible Application. These will be injected to the container.
 
 #### `Functions`
 
-If you make the Reduxible instance with above options, you can use below functions.
+If you have initialized the Reduxible instance with above proper options, then you can use below functions.
 
 ##### `server()`
 
-This returns express middleware for route and render react-redux application.
+This returns Reduxible's express.js middleware for routing and rendering the react-redux application.
 
 ```js
 const reduxible = new Reduxible(options);
@@ -113,8 +113,8 @@ server.use(reduxible.server());
 
 ##### `client(initialState: object, dest: element)`
 
-* `initialState`: A redux state object to initialize client renderer. In common, it stored to object contained by window when build container. (ex: `window.__state__`)
-* `dest`: An element to attached initialized Component.
+* `initialState`: A redux state object to initialize the client renderer. In common use cases, it is placed in window variable when the container is built. (ex: `window.__state__`)
+* `dest`: An element to be attached at the initialized Component.
 
 ```js
 const reduxible = new Reduxible(options);
@@ -123,14 +123,14 @@ reduxible.client(window.__state__, document.getElementById('content'));
 
 ### Utility Functions
 
-Pure Flux and Redux implement actions and reducers with switch statement. Sometimes it can make huge modules and unmaintainable codes. So Reduxible provides some utility function for make it simpler actions and reducers. But application can be slow when initialization when using this functions. Because `createReducer` is build the dictionary of reducers when initialization for the runtime performance. If you want to best performance for all time, building actions and reducers with the standard Redux pattern can be better choice.
+Pure Flux and Redux were implemented by many actions and reducers with switch statements. Sometimes it can make huge modules and unmaintainable codes. So Reduxible provides some utility functions to make actions and reducers simple. But the application can be slow with the functions. Because `createReducer` builds a dictionary of reducers at the initializing time for the runtime performance. If you want the best performance all the time, then building actions and reducers with the standard Redux pattern can be a better choice.
 
 #### :warning: WARNING
 
-Actions and Reducers can have M:N relationship. So they have to decoupled for the scalability. For detail, please read a [reference of the Redux](http://redux.js.org/docs/basics/index.html) before use these functions.
+Actions and Reducers can have M:N relationship. So they should be decoupled for the scalability. For details, please read [reference of the Redux](http://redux.js.org/docs/basics/index.html) before using the functions.
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
-You can define actions and reducers like below.
+You can define actions and reducers referring to below.
 
 ```js
 const actions = {
@@ -181,15 +181,15 @@ const reducers = [
 ];
 ```
 
-You don't need to duplicate the type declaration in action creator. These Utility function will cover repetitive tasks and call action names.
+You don't need to duplicate the type declaration in action creator. These Utility functions will cover repetitive tasks and call action names.
 
 #### `createAction(actions: object)`
 
-This returns function that return action by action type.
+This returns an action by its action type.
 
 #### `createReducer(initialState: object, reducers: array)`
 
-This makes redux reducer by actions.
+This returns a redux reducer by actions.
 
 #### `combineRouteReducer(reducers: object)`
 
