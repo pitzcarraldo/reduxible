@@ -5,6 +5,7 @@ import ReduxibleRouter from './ReduxibleRouter';
 import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import createHashHistory from 'history/lib/createHashHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 import { contextMiddleware } from './middlerwares';
 
@@ -103,7 +104,7 @@ export default class Reduxible {
       client: true
     };
     const store = this.storeFactory.createStore(initialState, [ contextMiddleware(context) ]);
-    const history = createBrowserHistory();
+    const history = this.config.useHashHistory() ? createHashHistory() : createBrowserHistory();
     const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
 
     ReactDOM.render(router.render(), dest);

@@ -1,3 +1,7 @@
+## 0.0.2-beta.2
+
+* Added `hashHistory` option for support the environment that do not support `pushState`.
+
 ## 0.0.2-beta.1
 
 * Refactored Reduxible.js for Handle Errors.
