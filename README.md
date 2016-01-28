@@ -1,4 +1,4 @@
-# Reduxible - The LTS Universal Framework for React + Redux
+# Reduxible: The LTS Universal Framework for React + Redux
 
 [![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/Pitzcarraldo/reduxible)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
