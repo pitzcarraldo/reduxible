@@ -300,9 +300,11 @@ class Todo extend Component {
 }
 ```
 
-## Example
+## Examples
 
-  * You can see the example to know how to use Reduxible in [here](https://github.com/Pitzcarraldo/reduxible-example).
+  * [Universal Application Example.](https://github.com/Pitzcarraldo/reduxible-example).
+  * [Single Page Application Example.](https://github.com/Pitzcarraldo/reduxible-example/tree/spa)
+  * [Reduxible + Spring Boot Example.](https://github.com/Pitzcarraldo/reduxible-example/tree/spring)
 
 ### Browser Compatibility
 
