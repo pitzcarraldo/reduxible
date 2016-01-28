@@ -28,7 +28,7 @@ The environment of React and Redux has been changed very quickly almost every da
 Many universal application samples of React and Redux are using the global variable like `__CLIENT__`, `__SERVER__`. But in many cases, global variables are not recommended. Because they make it difficult to predict where they defined and hard to maintaining.
 So Reduxible contains default configurations that needed in global when initialization.
 
-#### Avoid the Huge Switch Statement & Call the same thing with other names
+#### Avoid the Huge Switch Statement & Calling a same thing with other names
 
 Commonly large switch statements are considered as the anti-pattern. But basic flux/redux patterns are using the switch statement to find actions by type. Also, actions are defined and called with camelCase and snake_case, and repeated many times. It makes application code too verbose.
 Reduxible provides some [utility functions](#utility-functions) that makes these cases simpler.
