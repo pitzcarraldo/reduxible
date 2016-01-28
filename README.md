@@ -35,6 +35,8 @@ Reduxible provides some [utility functions](#utility-functions) that makes these
 
 For detail, see below links.
 
+* [Ways to eliminate switch in code](http://stackoverflow.com/questions/126409/ways-to-eliminate-switch-in-code)
+* [Large Switch statements: Bad OOP?](http://stackoverflow.com/questions/505454/large-switch-statements-bad-oop)
 * [Refactoring large switch statement](http://codereview.stackexchange.com/questions/42125/refactoring-large-switch-statement)
 * [Deprecating the switch statement for object literals](https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/)
 * And you could find many results about it from google.
