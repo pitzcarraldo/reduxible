@@ -13,11 +13,11 @@ Reduxible is based on [react-redux-universal-hot-example](https://github.com/eri
 
 ### Make Universal Application Easily
 
-React, Redux and other related assets are already good enough to use directly. But some people (like me) only want to focus on application codes and don't want to spend time for building and maintaining the project base. So I have wrapped base elements for React + Redux Application. If you use Reduxible, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
+React, Redux and other related assets are already good enough to use directly. But some people (like me) only want to focus on application codes and don't want to spend time on building and maintaining the project base. So I have wrapped base elements for React + Redux Application. If you use Reduxible, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
 
 ### We Need Long-Term Services!
 
-The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuffs. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
+The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuff. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in a case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
 
 ## Basic Concepts
 
@@ -25,7 +25,7 @@ The environment of React and Redux has been changed very quickly almost every da
 
 #### Managed Global Variables
 
-Many universal application samples of React and Redux are using global variable like `__CLIENT__`, `__SERVER__`. But in many cases, global variables are not recommended. Because they makes it difficult to predict where they defined and hard to maintaining.
+Many universal application samples of React and Redux are using the global variable like `__CLIENT__`, `__SERVER__`. But in many cases, global variables are not recommended. Because they make it difficult to predict where they defined and hard to maintaining.
 So Reduxible contains default configurations that needed in global when initialization.
 
 #### Avoid the Huge Switch Statement & Call the same thing with other names
@@ -78,7 +78,7 @@ Reduxible has peer dependencies so that you need to add below dependencies to yo
 
 ### `Reduxible(options)`
 
-A class to make a Reduxible instance. You can make a Reduxible instance for server, client, or both of them by configuration. It needs some option parameters below.
+A class to make a Reduxible instance. You can make a Reduxible instance for the server, client, or both of them by configuration. It needs some option parameters below.
 
 #### `Options`
 
@@ -86,15 +86,15 @@ A class to make a Reduxible instance. You can make a Reduxible instance for serv
 
 An object to set up the environment. All types are boolean, and the default value is false.
 
-* `server`: A flag to determine a location for the instance, server or client. If this flag is true, Reduxible instance will work for server.
+* `server`: A flag to determine a location for the instance, server or client. If this flag is true, the Reduxible instance will work for the server.
 * `development`: A flag to determine an environment. If this flag is true, some development functions will be activated. (like Webpack Dev Server, DevTools, etc.)
-* `universal`: A flag to determine whether it is an Universal Application or not. If this flag is true, some universal functions will be enabled. If you want to make this Application to Single Page Application, set this to false.
+* `universal`: A flag to determine whether it is a Universal Application or not. If this flag is true, some universal functions will be enabled. If you want to make this Application to Single Page Application, set this to false.
 * `hashHistory`: Use hashHistory when this is true. It will work only universal is false. (Only for Single Page Application.)
-* `devTools`: A flag to determine whether to use Redux Dev Tools or not. Thin flag only works in development environment.
+* `devTools`: A flag to determine whether to use Redux Dev Tools or not. Thin flag only works in the development environment.
 
 ##### `container: component`
 
-A React Component that makes a html layout. This returns elements like `<html>...</html>`
+A React Component that makes a HTML layout. This returns elements like `<html>...</html>`
 
 ##### `errorContainer: component`
 
@@ -112,7 +112,7 @@ A plain route of react-router.([see this](https://github.com/rackt/react-router/
 
 An array that contains redux middlewares.
 
-* `contextMiddleware`: The contextMiddleware will be injected before other middlewares. It will add a `context` field to every actions. The `context` field has below information. You can add more properties to context in your own middleware.
+* `contextMiddleware`: The contextMiddleware will be injected before other middlewares. It will add a `context` field to every action. The `context` field has below information. You can add more properties to the context in your own middleware.
     * server or client: A flag presenting the current environment.
     * req/res/next (only server): Express middleware objects.
 
@@ -126,15 +126,15 @@ A function that executed when hot modules are reloaded. A Reducer replacement co
 
 #### `initialActions: array (experimental)`
 
-The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, sever will render with initial state with error logs. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/services/initialActions.js).
+The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, the server will render the initial state with error logs. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/services/initialActions.js).
 
 ##### `extras: object`
 
-Extra options that you want to use in the Reduxible Application. These will be injected to the container.
+Extra options that you want to use in the Reduxible Application. These will be injected into the container.
 
 #### `Functions`
 
-If you have initialized the Reduxible instance with above proper options, then you can use below functions.
+If you have initialized the Reduxible instance with above proper options, then you can use these functions.
 
 ##### `server()`
 
@@ -162,7 +162,7 @@ Pure Flux and Redux were implemented by many actions and reducers with switch st
 
 #### :warning: WARNING
 
-Actions and Reducers can have M:N relationship. So they should be decoupled for the scalability. For details, please read [reference of the Redux](http://redux.js.org/docs/basics/index.html) before using the functions.
+Actions and Reducers can have M: N relationship. So they should be decoupled for the scalability. For details, please read [reference of the Redux](http://redux.js.org/docs/basics/index.html) before using the functions.
 
 Reduxible provides some utility functions to make redux actions and reducer simpler.
 You can define actions and reducers referring to below.
