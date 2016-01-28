@@ -40,7 +40,7 @@ For detail, see below links.
 * And you could find many results about it from google.
 
 
-### Repeat simple work to make a service
+### Repeat simple work to build a service
 
 There are many libraries to make a redux application short and simpler. But shortcodes without understanding and managing are not a good solution for every case. Developers have to write and make it simpler themselves to maintain it. Thus, when you build your app with Reduxible, we recommend that just write similar code repeatedly. Then, when if there will a lot of similar codes, they can make something like middlewares to make those simpler.
 
