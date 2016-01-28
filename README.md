@@ -9,10 +9,6 @@ Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://
 Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus on business codes.
 Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
 
-## :construction: CAUTION: Work In Progress
-
-Reduxible is now under construction so that it is not ready for production. Many APIs are changing everyday and it has a lot of pre-release versions like '0.0.x-alpha.x'. I could not recommend using it yet. But if you would like to make this better with me, please don't hesitate to send a small pull-request or just leave anything you want as an issue.
-
 ## Why Reduxible?
 
 ### Make Universal Application Easily
@@ -20,9 +16,43 @@ Reduxible is now under construction so that it is not ready for production. Many
 React, Redux and other related assets are already good enough to use directly. But some people (like me) only want to focus on application codes and don't want to spend time for building and maintaining the project base. So I have wrapped base elements for React + Redux Application. If you use Reduxible, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
 
 ### We Need Long-Term Services!
+
 The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuffs. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
 
+## Basic Concepts
+
+### Write the code clearly
+
+#### Managed Global Variables
+
+Many universal application samples of React and Redux are using global variable like `__CLIENT__`, `__SERVER__`. But in many cases, global variables are not recommended. Because it makes it makes it difficult to predict where they defined and hard to managing.
+So Reduxible contains default configurations that needed in global when initialization.
+
+#### Avoid the Huge Switch Statement & Call the same thing with other names
+
+Commonly large switch statements are considered as the anti-pattern. But basic flux/redux patterns are using the switch statement to find actions by type. Also, actions are defined and called with camelCase and snake_case, and repeated many times. It makes application code too verbose.
+Reduxible provides some utility functions that makes these cases simpler.
+
+For detail, see below links.
+
+* [Refactoring large switch statement](http://codereview.stackexchange.com/questions/42125/refactoring-large-switch-statement)
+* [Deprecating the switch statement for object literals](https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/)
+* And you could find many results about it from google.
+
+
+### Repeat simple work to make a service
+
+There are many libraries to make a redux application short and simpler. But shortcodes without understanding and managing are not a good solution for every case. Developers have to write and make it simpler themselves to maintain it. Thus, when you build your app with Reduxible, we recommend that just write similar code repeatedly. Then, when if there will a lot of similar codes, they can make something like middlewares to make those simpler.
+
+### Framework for right now
+
+Considerable related things with React and Redux are not compatible with legacy environments like low versions of Internet Explorer. But many enterprise and services can't ignore them. Therefore, Reduxible is focusing to compatibility for support Internet Explorer 8 at least with some shims. And it also can be easily integrated with spring that one of the most popular platform. (please refer the [example project](https://github.com/Pitzcarraldo/reduxible-example).)
+
 ## Installation
+
+### :construction: CAUTION: Do not use Experimental Releases
+
+There are many pre-release versions before 0.0.2. They are experimental versions. I could not recommend using it.
 
 ```bash
 $ npm install --save reduxible
@@ -59,6 +89,7 @@ An object to set up the environment. All types are boolean, and the default valu
 * `server`: A flag to determine a location for the instance, server or client. If this flag is true, Reduxible instance will work for server.
 * `development`: A flag to determine an environment. If this flag is true, some development functions will be activated. (like Webpack Dev Server, DevTools, etc.)
 * `universal`: A flag to determine whether it is an Universal Application or not. If this flag is true, some universal functions will be enabled. If you want to make this Application to Single Page Application, set this to false.
+* `hashHistory`: Use hashHistory when this is true. It will work only universal is false. (Only for Single Page Application.)
 * `devTools`: A flag to determine whether to use Redux Dev Tools or not. Thin flag only works in development environment.
 
 ##### `container: component`
@@ -67,11 +98,11 @@ A React Component that makes a html layout. This returns elements like `<html>..
 
 ##### `errorContainer: component`
 
-A React Component that renders a response when it does not succeed. If this is empty, Application will return a raw error response with string.
+A React Component that renders a response when it does not succeed. If this is empty, Application will return a raw error stack with string.
 
 ##### `devTools: component`
 
-A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It returns a result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have a function called `composers` that returns DevTools.instrument() and debug-session. See [this example](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/helpers/DevTools.js).
+A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It returns a result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have a function called `composers` that returns DevTools.instrument() and debug-session. See [this example](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/helpers/DevTools.js).
 
 ##### `routes: object`
 
@@ -81,6 +112,10 @@ A plain route of react-router.([see this](https://github.com/rackt/react-router/
 
 An array that contains redux middlewares.
 
+* `contextMiddleware`: The contextMiddleware will be injected before other middlewares. It will add a `context` field to every actions. The `context` field has below information. You can add more properties to context in your own middleware.
+    * server or client: A flag presenting the current environment.
+    * req/res/next (only server): Express middleware objects.
+
 ##### `reducers: object`
 
 An object that contains redux reducers to be used after combining.
@@ -89,9 +124,9 @@ An object that contains redux reducers to be used after combining.
 
 A function that executed when hot modules are reloaded. A Reducer replacement codes have to be placed in this.
 
-#### `initialActions: array`
+#### `initialActions: array (experimental)`
 
-The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/develop/src/universal/services/initialActions.js).
+The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, sever will render with initial state with error logs. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/services/initialActions.js).
 
 ##### `extras: object`
 
@@ -282,6 +317,8 @@ See the [LICENSE file][] for license text and copyright information.
 [LICENSE file]: https://github.com/Pitzcarraldo/reduxible/blob/master/LICENSE
 
 ### Contributing
+
+**Please don't hesitate to send a small pull-request or just leave anything you want as an issue.**
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b feature/my-new-feature`

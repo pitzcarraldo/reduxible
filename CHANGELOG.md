@@ -1,3 +1,8 @@
+## 0.0.2
+
+* Migrated to babel-runtime from babel-polyfill.
+* Improved docs.
+
 ## 0.0.2-beta.2
 
 * Added `hashHistory` option for support the environment that do not support `pushState`.

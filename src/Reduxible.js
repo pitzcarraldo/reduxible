@@ -43,7 +43,7 @@ export default class Reduxible {
           return router.route(req.originalUrl, this.serverRoute(res, store));
         } catch (error) {
           /* eslint-disable no-console */
-          console.error('Server Side Rendering was Failed. Render Empty View.', error.stack);
+          console.error('Server Side Rendering was Failed. Render Empty View.\n', error.stack);
           return res.send(this.render(''));
         }
       })();
@@ -56,7 +56,7 @@ export default class Reduxible {
       await Promise.all(willDispatch);
     } catch (error) {
       /* eslint-disable no-console */
-      console.error('Pre-initialization was Failed. Render With InitialStates', error.stack);
+      console.error('Pre-initialization was Failed. Render With InitialStates.\n', error.stack);
     }
   }
 
@@ -111,7 +111,6 @@ export default class Reduxible {
 
     if (this.config.useDevTools() && this.devTools) {
       window.React = React;
-
       // render twice is necessary.
       // if not, React shows invalid server-client DOM sync error.
       ReactDOM.render(router.renderWithDevTools(), dest);
