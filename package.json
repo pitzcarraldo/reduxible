@@ -93,7 +93,7 @@
     "react-dom": "^0.14.5",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",
-    "redux": "^3.0.4",
+    "redux": "^3.2.0",
     "redux-simple-router": "^1.0.2",
     "rimraf": "^2.3.4",
     "webpack": "^1.12.11"
