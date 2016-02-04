@@ -1,23 +1,23 @@
-# Reduxible: The LTS Universal Framework for React + Redux
+# Reduxible: The Fast and Easy to make a React + Redux app
 
 [![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/Pitzcarraldo/reduxible)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![npm downloads](https://img.shields.io/npm/dm/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
 
-Universal (Isomorphic) Hot-Loadable and Pluggable Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.
+Universal (Isomorphic) Hot-Loadable and Pluggable(by middleware) Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.
 Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus on business codes.
 Reduxible is based on [react-redux-universal-hot-example](https://github.com/erikras/react-redux-universal-hot-example) and inspired by [Fluxible](https://github.com/yahoo/fluxible).
 
 ## Why Reduxible?
 
-### Make Universal Application Easily
+### Make Universal Application Easily with React + Redux
 
-React, Redux and other related assets are already good enough to use directly. But some people (like me) only want to focus on application codes and don't want to spend time on building and maintaining the project base. So I have wrapped base elements for React + Redux Application. If you use Reduxible, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
+React, Redux and other related assets are already good enough to use directly. But some people (like me) just want to focus on application codes and don't want to spend time on building and maintaining the structure of the project. So I've wrapped and integrated mandatory libraries for React + Redux Application. If you use **Reduxible**, only what you need to do is code and set Router, Middleware, Reducers, and React Components to Reduxible. Then, you can run & see the React + Redux App immediately. Also, it can be a Universal App or Single Page App by config.
 
-### We Need Long-Term Services!
+### We Need Long-Term Framework!
 
-The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuff. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in a case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!**
+The environment of React and Redux has been changed very quickly almost every day. There are also a ton of related libraries and APIs changing frequently. But for building real products, we need stable and verified stuff. Reduxible provides useful modules having many references to make a universal application with React and Redux. And they are peer dependencies, so you can update them for the minor update. Reduxible will provide fixed APIs by wrapping the modules and will not be updated, except in a case of critical bugs. Therefore, you can only focus on building your own business features for your application without concerning or modifying integration codes of the application. Reduxible will provide Long-Term Services for React + Redux application that even can be run in the **Internet Explorer 8!** (I really really hate it, but for many reason, lots of people have to support it.)
 
 ## Basic Concepts
 
@@ -25,13 +25,13 @@ The environment of React and Redux has been changed very quickly almost every da
 
 #### Managed Global Variables
 
-Many universal application samples of React and Redux are using the global variable like `__CLIENT__`, `__SERVER__`. But in many cases, global variables are not recommended. Because they make it difficult to predict where they defined and hard to maintaining.
+Many universal application samples of React and Redux are using the global variable like `__CLIENT__`, `__SERVER__`. But in common, global variables are not recommended. Because they make it difficult to find and maintain.
 So Reduxible contains default configurations that needed in global when initialization.
 
 #### Avoid the Huge Switch Statement & Calling a same thing with other names
 
 Commonly large switch statements are considered as the anti-pattern. But basic flux/redux patterns are using the switch statement to find actions by type. Also, actions are defined and called with camelCase and snake_case, and repeated many times. It makes application code too verbose.
-Reduxible provides some [utility functions](#utility-functions) that makes these cases simpler.
+Reduxible provides some [utility functions](#utility-functions) that makes these cases simpler. (or you can also use [redux-actions](https://github.com/acdlite/redux-actions) for same purpose.)
 
 For detail, see below links.
 
@@ -43,9 +43,9 @@ For detail, see below links.
 
 ### Repeat simple work to build a service
 
-There are many libraries to make a redux application short and simpler. But shortcodes without understanding and managing are not a good solution for every case. Developers have to write and make it simpler themselves to maintain it. Thus, when you build your app with Reduxible, we recommend that just write similar code repeatedly. Then, when if there will a lot of similar codes, they can make something like middlewares to make those simpler.
+There are many libraries to make a redux application short and simpler. But short codes without understanding are not a good choice for many cases. Developers have to write and make it simpler themselves to maintain it. Thus, when you build your app with Reduxible, we recommend that just write similar code repeatedly. Then, when if there will a lot of similar codes, they can make something like middlewares to make those simpler.
 
-### Framework for right now
+### Framework for nowadays
 
 Considerable related things with React and Redux are not compatible with legacy environments like low versions of Internet Explorer. But many enterprise and services can't ignore them. Therefore, Reduxible is focusing to compatibility for support Internet Explorer 8 at least with some shims. And it also can be easily integrated with spring that one of the most popular platform. (please refer the [example project](https://github.com/Pitzcarraldo/reduxible-example).)
 
@@ -305,6 +305,7 @@ class Todo extend Component {
   * [Universal Application Example.](https://github.com/Pitzcarraldo/reduxible-example).
   * [Single Page Application Example.](https://github.com/Pitzcarraldo/reduxible-example/tree/spa)
   * [Reduxible + Spring Boot Example.](https://github.com/Pitzcarraldo/reduxible-example/tree/spring)
+  * [Reduxible + Spring Boot Universal Example.](https://github.com/Pitzcarraldo/reduxible-example/tree/spring-universal)
 
 ### Browser Compatibility
 
