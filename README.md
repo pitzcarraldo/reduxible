@@ -1,6 +1,7 @@
-# Reduxible: The Fast and Easy to make a React + Redux app
+# Reduxible: The Fast and Easy way to make React + Redux apps
 
 [![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/Pitzcarraldo/reduxible)
+[![Coverage Status](https://coveralls.io/repos/github/Pitzcarraldo/reduxible/badge.svg?branch=master)](https://coveralls.io/github/Pitzcarraldo/reduxible?branch=master)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![npm downloads](https://img.shields.io/npm/dm/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
