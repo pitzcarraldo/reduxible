@@ -1,60 +1,115 @@
-import expect from 'expect';
+import { expect } from 'chai';
 import React from 'react';
 import ReduxibleConfig from '../src/ReduxibleConfig';
 
 describe('ReduxibleConfig', () => {
-  it('returns false if devTools is undefined', () => {
-    const config = new ReduxibleConfig();
-    expect(config.useDevTools()).toBe(false);
+
+  it('isServer should returns true when server is true', () => {
+    const config = new ReduxibleConfig({
+      server: true
+    });
+    expect(config.isServer()).to.equal(true);
   });
 
-  it('returns false if devTools is false', () => {
+  it('isProduction should returns true when development is false', () => {
     const config = new ReduxibleConfig({
-      devTools: undefined
+      development: false
     });
-    expect(config.useDevTools()).toBe(false);
+    expect(config.isProduction()).to.equal(true);
   });
 
-  it('returns false if development is undefined', () => {
-    const config = new ReduxibleConfig({
-      server: false,
-      devTools: (<div></div>)
+  describe('useDevTools', () => {
+    it('should returns false if devTools is undefined', () => {
+      const config = new ReduxibleConfig();
+      expect(config.useDevTools()).to.equal(false);
     });
-    expect(config.useDevTools()).toBe(false);
+
+    it('should returns false if devTools is false', () => {
+      const config = new ReduxibleConfig({
+        devTools: undefined
+      });
+      expect(config.useDevTools()).to.equal(false);
+    });
+
+    it('should returns false if development is undefined', () => {
+      const config = new ReduxibleConfig({
+        server: false,
+        devTools: (<div></div>)
+      });
+      expect(config.useDevTools()).to.equal(false);
+    });
+
+    it('should returns false if development is false', () => {
+      const config = new ReduxibleConfig({
+        server: false,
+        development: false,
+        devTools: true
+      });
+      expect(config.useDevTools()).to.equal(false);
+    });
+
+    it('should returns false if server is true', () => {
+      const config = new ReduxibleConfig({
+        server: true,
+        development: true,
+        devTools: true
+      });
+      expect(config.useDevTools()).to.equal(false);
+    });
+
+    it('should returns true if server is undefined', () => {
+      const config = new ReduxibleConfig({
+        development: true,
+        devTools: true
+      });
+      expect(config.useDevTools()).to.equal(true);
+    });
+
+    it('should returns true if server is false', () => {
+      const config = new ReduxibleConfig({
+        server: false,
+        development: true,
+        devTools: true
+      });
+      expect(config.useDevTools()).to.equal(true);
+    });
   });
 
-  it('returns false if development is false', () => {
-    const config = new ReduxibleConfig({
-      server: false,
-      development: false,
-      devTools: true
-    });
-    expect(config.useDevTools()).toBe(false);
-  });
 
-  it('returns false if server is true', () => {
-    const config = new ReduxibleConfig({
-      server: true,
-      development: true,
-      devTools: true
+  describe('useHashHistory', () => {
+    it('should returns true when server and universal is false', () => {
+      const config = new ReduxibleConfig({
+        server: false,
+        universal: false,
+        hashHistory: true
+      });
+      expect(config.useHashHistory()).to.equal(true);
     });
-    expect(config.useDevTools()).toBe(false);
-  });
 
-  it('returns true if server is undefined', () => {
-    const config = new ReduxibleConfig({
-      development: true,
-      devTools: true
-    });
-    expect(config.useDevTools()).toBe(true);
-  });
+    it('should returns false when server or universal is true even hashHistory is true', () => {
+      const config = new ReduxibleConfig({
+        server: true,
+        universal: false,
+        hashHistory: true
+      });
+      expect(config.useHashHistory()).to.equal(false);
 
-  it('returns true if server is false', () => {
-    const config = new ReduxibleConfig({
-      server: false,
-      development: true,
-      devTools: true
+      config.server = false;
+      config.universal = true;
+      expect(config.useHashHistory()).to.equal(false);
+
+      config.server = true;
+      config.universal = true;
+      expect(config.useHashHistory()).to.equal(false);
     });
-    expect(config.useDevTools()).toBe(true);
+
+    it('should returns false when hashHistory is false', () => {
+      const config = new ReduxibleConfig({
+        server: false,
+        universal: false,
+        hashHistory: false
+      });
+      expect(config.useHashHistory()).to.equal(false);
+    });
   });
 });

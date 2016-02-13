@@ -1,119 +1,92 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactDOMServer from 'react-dom/server';
-import ReduxibleRouter from './ReduxibleRouter';
 import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
+import RouterFactory from './RouterFactory';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import createHashHistory from 'history/lib/createHashHistory';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
-import { contextMiddleware } from './middlerwares';
+import contextMiddleware from './contextMiddlerware';
+import warning from './warning';
 
 export default class Reduxible {
   constructor(options = {}) {
-    this.config = new ReduxibleConfig(options.config);
-    this.container = options.container;
-    this.errorContainer = options.errorContainer;
-    this.devTools = options.devTools;
-    this.routes = options.routes;
+    this.config = new ReduxibleConfig(options.config || options);
+    this.routerFactory = new RouterFactory(options);
     this.storeFactory = new StoreFactory({ ...options, useDevTools: this.config.useDevTools() });
     this.initialActions = options.initialActions || [];
-    this.extras = options.extras || {};
   }
 
   server() {
-    return (req, res, next) => {
-      (async ()=> {
-        try {
-          if (!this.config.isUniversal()) {
-            return res.send(this.render(''));
-          }
-
-          const context = {
-            server: true,
-            ...{ req, res, next }
-          };
-
-          const store = this.storeFactory.createStore({}, [ contextMiddleware(context) ]);
-          await this.preInitialize(store);
-
-          const history = createMemoryHistory();
-          const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
-
-          return router.route(req.originalUrl, this.serverRoute(res, store));
-        } catch (error) {
-          /* eslint-disable no-console */
-          console.error('Server Side Rendering was Failed. Render Empty View.\n', error.stack);
-          return res.send(this.render(''));
+    if (!this.config.isServer()) {
+      throw new Error('A server() only can be called in server environment. Please check your config arguments.');
+    }
+    return async(req, res, next) => {
+      try {
+        if (!this.config.isUniversal()) {
+          return res.send(this.routerFactory.renderContainer());
         }
-      })();
+
+        const history = createMemoryHistory();
+        const store = this.storeFactory.createStore({},
+          [ contextMiddleware({ config: this.config, history, req, res, next }) ]);
+
+        await this.preInitialize(store);
+
+        const router = this.routerFactory.createRouter(history, store);
+        const url = req.originalUrl || req.url || '/';
+        const { redirectLocation, rendered } = await router.renderServer(url, store);
+
+        if (redirectLocation) {
+          return res.redirect(redirectLocation.pathname);
+        }
+
+        return res.send(rendered);
+      } catch (error) {
+
+        warning(error.stack);
+
+        if (error.component) {
+          res.status(500);
+          return res.send(error.component);
+        }
+
+        return next(error);
+      }
     };
   }
 
   async preInitialize(store) {
     try {
-      const willDispatch = this.initialActions.map(action => store.dispatch(action));
-      await Promise.all(willDispatch);
+      const willDispatch = this.initialActions.map(action => new Promise(resolve => resolve(store.dispatch(action))));
+      return await Promise.all(willDispatch);
     } catch (error) {
-      /* eslint-disable no-console */
-      console.error('Pre-initialization was Failed. Render With InitialStates.\n', error.stack);
+      warning('Failed to PreInitialize. Render with initialStates.');
+      warning(error.stack);
     }
   }
 
-  render(component, store) {
+  client(initialState = {}, container, callback) {
+    if (!this.config.isClient()) {
+      throw new Error('A client() only can be called in browser. Please check your config arguments.');
+    }
+
+    if (!container) {
+      throw new Error('A container element is empty.');
+    }
+
+    let history;
     try {
-      const Html = this.container;
-      const extras = this.extras;
-      return '<!doctype html>\n' +
-        ReactDOMServer.renderToString(
-          <Html component={component} store={store} { ...extras } />
-        );
+      history = this.config.useHashHistory() ? createHashHistory() : createBrowserHistory();
     } catch (error) {
-      return this.renderError(error);
+      warning('Failed to initialize browser history. Use memory history.');
+      history = createMemoryHistory();
     }
-  }
+    const store = this.storeFactory.createStore(initialState, [ contextMiddleware({ config: this.config, history }) ]);
+    const router = this.routerFactory.createRouter(history, store);
 
-  renderError(error) {
-    if (!this.errorContainer) {
-      return error.stack;
-    }
+    router.renderClient(container, callback);
 
-    const Error = this.errorContainer;
-    const extras = this.extras;
-    return '<!doctype html>\n' +
-      ReactDOMServer.renderToString(
-        <Error error={error} { ...extras } />
-      );
-  }
-
-  serverRoute(res, store) {
-    return (error, redirectLocation, component) => {
-      if (redirectLocation) {
-        return res.redirect(redirectLocation.pathname);
-      }
-      if (error) {
-        res.status(500);
-        return res.send(this.renderError(error));
-      }
-      return res.send(this.render(component, store));
-    };
-  }
-
-  client(initialState, dest) {
-    const context = {
-      client: true
-    };
-    const store = this.storeFactory.createStore(initialState, [ contextMiddleware(context) ]);
-    const history = this.config.useHashHistory() ? createHashHistory() : createBrowserHistory();
-    const router = new ReduxibleRouter(this.routes, store, history, this.devTools);
-
-    ReactDOM.render(router.render(), dest);
-
-    if (this.config.useDevTools() && this.devTools) {
-      window.React = React;
-      // render twice is necessary.
-      // if not, React shows invalid server-client DOM sync error.
-      ReactDOM.render(router.renderWithDevTools(), dest);
+    if (this.config.useDevTools()) {
+      router.renderClientWithDevTools(container, callback);
     }
   }
 }

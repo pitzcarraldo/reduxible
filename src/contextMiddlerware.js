@@ -1,4 +1,4 @@
-export function contextMiddleware(context) {
+export default function contextMiddleware(context) {
   return () => {
     return next => action => {
       action.context = context;

@@ -1,12 +1,19 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 
 export default class StoreFactory {
   constructor(options) {
-    this.middlewares = options.middlewares;
+    this.middlewares = options.middlewares || [];
     this.reducers = options.reducers;
     this.reloader = options.reloader;
     this.devTools = options.devTools;
     this.useDevTools = options.useDevTools;
+    this.validate();
+  }
+
+  validate() {
+    if (!this.reducers) {
+      throw new Error('A reducers is empty. Please check your config arguments.');
+    }
   }
 
   createStore(initialState = {}, middlewares = []) {

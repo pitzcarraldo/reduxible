@@ -1,10 +1,10 @@
 export default class ReduxibleConfig {
   constructor(options = {}) {
-    this.server = options.server || false;
-    this.development = options.development || false;
-    this.universal = options.universal || false;
-    this.hashHistory = options.hashHistory || false;
-    this.devTools = options.devTools || false;
+    this.server = !!options.server;
+    this.development = !!options.development;
+    this.universal = !!options.universal;
+    this.hashHistory = !!options.hashHistory;
+    this.devTools = !!options.devTools;
   }
 
   isServer() {

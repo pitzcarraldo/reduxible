@@ -7,37 +7,6 @@ export function combineRouteReducers(reducers) {
 
 /**
  * @method
- * @param {Object} initialState - initial state for reducer
- * @param {Object} reducers - list of reducers
- * @returns {Function} reducer - reducer
- */
-export function createReducer(initialState = {}, reducers = []) {
-  const REDUCERS = {};
-
-  reducers.forEach((reducer) => {
-    if (!reducer.types) {
-      return;
-    }
-    reducer.types.forEach((type) => {
-      if (!REDUCERS[type]) {
-        REDUCERS[type] = [];
-      }
-      REDUCERS[type].push(reducer.reduce);
-    });
-  });
-
-  return (state = initialState, action) => {
-    if (REDUCERS[action.type]) {
-      REDUCERS[action.type].forEach((reduce)=> {
-        state = { ...reduce(action, state) };
-      });
-    }
-    return state;
-  };
-}
-
-/**
- * @method
  * @param {Object} actions - list of action
  * @returns {Function} actionCreatorSelector - actionCreatorSelector
  */
@@ -69,5 +38,36 @@ export function createAction(actions) {
         type
       };
     };
+  };
+}
+
+/**
+ * @method
+ * @param {Object} initialState - initial state for reducer
+ * @param {Object} reducers - list of reducers
+ * @returns {Function} reducer - reducer
+ */
+export function createReducer(initialState = {}, reducers = []) {
+  const REDUCERS = {};
+
+  reducers.forEach((reducer) => {
+    if (!reducer.types) {
+      return;
+    }
+    reducer.types.forEach((type) => {
+      if (!REDUCERS[type]) {
+        REDUCERS[type] = [];
+      }
+      REDUCERS[type].push(reducer.reduce);
+    });
+  });
+
+  return (state = initialState, action) => {
+    if (REDUCERS[action.type]) {
+      REDUCERS[action.type].forEach((reduce)=> {
+        state = { ...reduce(action, state) };
+      });
+    }
+    return state;
   };
 }
