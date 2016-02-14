@@ -44,7 +44,7 @@
     "fluxible"
   ],
   "scripts": {
-    "clean": "rimraf lib dist coverage",
+    "clean": "rimraf lib dist coverage _book",
     "lint": "eslint src test --fix",
     "test": "mocha",
     "coverage": "babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha",
@@ -57,7 +57,12 @@
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
-    "prepublish": "npm run clean && npm run build"
+    "prepublish": "npm run clean && npm run build",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "npm run docs:prepare && gitbook build -g Pitzcarraldo/reduxible",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push https://github.com/Pitzcarraldo/reduxible.git gh-pages --force"
   },
   "dependencies": {
     "babel-runtime": "^6.3.19"
@@ -88,6 +93,7 @@
     "eslint": "^1.7.1",
     "eslint-config-rackt": "^1.1.1",
     "eslint-plugin-react": "^3.16.1",
+    "gitbook-cli": "^1.0.1",
     "history": "^1.17.0",
     "isparta": "^4.0.0",
     "istanbul-coveralls": "^1.0.3",

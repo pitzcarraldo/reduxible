@@ -8,3 +8,4 @@ coverage
 *.ipr
 *.iml
 *.iws
+ _book
