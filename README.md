@@ -1,4 +1,4 @@
-# Reduxible
+# [Reduxible](http://reduxible.js.org/)
 
 ## The Fast and Easy way to make React + Redux apps
 
