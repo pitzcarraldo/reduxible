@@ -55,6 +55,28 @@ describe('utils', () => {
       expect(action('SET_NUMBER')()).to.have.property('type', 'SET_NUMBER');
     });
 
+    it('should return action with namespace when namespace is exists', () => {
+      const action = createAction('CALCULATE',
+        {
+          GET_NUMBER: {
+            payload: 1
+          }
+        }
+      );
+      expect(action('GET_NUMBER')()).to.have.property('type', 'CALCULATE/GET_NUMBER');
+    });
+
+    it('should return action type with namespace when namespace is exists', () => {
+      const action = createAction('CALCULATE',
+        {
+          GET_NUMBER: {
+            payload: 1
+          }
+        }
+      );
+      expect(action.type('GET_NUMBER')).to.be.equal('CALCULATE/GET_NUMBER');
+    });
+
   });
 
   describe('createReducer', () => {
@@ -106,5 +128,4 @@ describe('utils', () => {
       expect(state).to.have.property('lastModified', time);
     });
   });
-
 });

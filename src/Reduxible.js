@@ -56,7 +56,7 @@ export default class Reduxible {
 
   async preInitialize(store) {
     try {
-      const willDispatch = this.initialActions.map(action => new Promise(resolve => resolve(store.dispatch(action))));
+      const willDispatch = this.initialActions.map(action => Promise.resolve(store.dispatch(action)));
       return await Promise.all(willDispatch);
     } catch (error) {
       warning('Failed to PreInitialize. Render with initialStates.');

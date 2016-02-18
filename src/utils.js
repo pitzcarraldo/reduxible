@@ -7,23 +7,28 @@ export function combineRouteReducers(reducers) {
 
 /**
  * @method
- * @param {Object} actions - list of action
+ * @param {...*} args - (actions) or (namespace, actions)
  * @returns {Function} actionCreatorSelector - actionCreatorSelector
  */
-export function createAction(actions) {
-  return (type) => {
-    return (...args) => {
+export function createAction(...args) {
+  const namespace = args[1] && `${args[0]}/` || '';
+  const actions = args[1] || args[0];
+  const action = type =>
+    (...args) => {
       let action = {};
+
       if (actions[type]) {
         switch (typeof actions[type]) {
-          case 'function' : {
-            action = actions[type](...args);
-            break;
-          }
-          case 'object' : {
-            action = actions[type];
-            break;
-          }
+          case 'function' :
+            {
+              action = actions[type](...args);
+              break;
+            }
+          case 'object' :
+            {
+              action = actions[type];
+              break;
+            }
           default :
             action = { payload: actions[type] };
         }
@@ -35,10 +40,11 @@ export function createAction(actions) {
 
       return {
         ...action,
-        type
+        type: namespace + type
       };
     };
-  };
+  action.type = type => namespace + type;
+  return action;
 }
 
 /**
@@ -48,26 +54,23 @@ export function createAction(actions) {
  * @returns {Function} reducer - reducer
  */
 export function createReducer(initialState = {}, reducers = []) {
-  const REDUCERS = {};
-
-  reducers.forEach((reducer) => {
-    if (!reducer.types) {
-      return;
+  const REDUCERS = reducers.reduce((reducers, reducer) => {
+    if (!reducer.types || !reducer.types.length) {
+      return reducers;
     }
-    reducer.types.forEach((type) => {
-      if (!REDUCERS[type]) {
-        REDUCERS[type] = [];
-      }
-      REDUCERS[type].push(reducer.reduce);
-    });
-  });
+    return reducer.types.reduce((prevReducers, type) => {
+      prevReducers[type] = prevReducers[type] || [];
+      prevReducers[type].push(reducer.reduce);
+      return prevReducers;
+    }, reducers);
+  }, {});
 
   return (state = initialState, action) => {
-    if (REDUCERS[action.type]) {
-      REDUCERS[action.type].forEach((reduce)=> {
-        state = { ...reduce(action, state) };
-      });
+    if (!REDUCERS[action.type]) {
+      return state;
     }
-    return state;
+    return REDUCERS[action.type].reduce(
+      (prevState, reduce) => ({ ...reduce(action, prevState) }), state
+    );
   };
 }

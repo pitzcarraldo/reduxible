@@ -60,7 +60,7 @@ export default class ReduxibleRouter {
         }
 
         if (!redirectLocation && !renderProps) {
-          return reject(new Error('Failed to route. Please check your routes configuration.'));
+          return reject(new Error('Failed to route. There is no matching path. Please check your routes configuration.'));
         }
 
         if (redirectLocation) {

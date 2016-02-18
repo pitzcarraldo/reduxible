@@ -26,4 +26,4 @@ git tag latest -f
 git push origin $tag_name -f
 git push origin latest -f
 
-#npm publish
+npm publish

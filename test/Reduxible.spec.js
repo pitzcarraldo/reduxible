@@ -1,9 +1,7 @@
 import chai, { expect } from 'chai';
 import { spy } from 'sinon';
 import sinonChai from 'sinon-chai';
-/*eslint-disable no-unused-vars*/
 import React from 'react';
-/*eslint-enable no-unused-vars*/
 import { combineRouteReducers } from '../src/utils';
 import Reduxible from '../src/Reduxible';
 import { createReducer } from '../src/utils';
