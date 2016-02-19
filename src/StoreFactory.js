@@ -1,12 +1,13 @@
 import { applyMiddleware, compose, createStore } from 'redux';
+import { syncHistory } from 'react-router-redux';
 
 export default class StoreFactory {
-  constructor(options) {
-    this.middlewares = options.middlewares || [];
-    this.reducers = options.reducers;
-    this.reloader = options.reloader;
-    this.devTools = options.devTools;
-    this.useDevTools = options.useDevTools;
+  constructor({ middlewares = [], reducers, reloader, devTools, useDevTools }) {
+    this.middlewares = middlewares;
+    this.reducers = reducers;
+    this.reloader = reloader;
+    this.devTools = devTools;
+    this.useDevTools = useDevTools;
     this.validate();
   }
 
@@ -16,20 +17,27 @@ export default class StoreFactory {
     }
   }
 
-  createStore(initialState = {}, middlewares = []) {
-    let finalCreateStore;
-    let appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
+  createStore(initialState = {}, middlewares = [], history) {
+    const reduxRouterMiddleware = syncHistory(history);
+    const appliedMiddleware = applyMiddleware(
+      ...middlewares,
+      ...this.middlewares,
+      reduxRouterMiddleware
+    );
 
+    let finalMiddlewares;
     if (this.useDevTools && this.devTools) {
-      finalCreateStore = compose(
+      finalMiddlewares = compose(
         appliedMiddleware,
         ...this.devTools.composers()
-      )(createStore);
+      );
     } else {
-      finalCreateStore = appliedMiddleware(createStore);
+      finalMiddlewares = appliedMiddleware;
     }
 
-    const store = finalCreateStore(this.reducers, initialState);
+    const store = createStore(this.reducers, initialState, finalMiddlewares);
+
+    reduxRouterMiddleware.listenForReplays(store);
 
     if (this.reloader) {
       this.reloader(store);

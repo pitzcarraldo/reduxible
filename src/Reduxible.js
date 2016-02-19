@@ -1,9 +1,9 @@
 import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import RouterFactory from './RouterFactory';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import createHashHistory from 'history/lib/createHashHistory';
-import createMemoryHistory from 'history/lib/createMemoryHistory';
+import browserHistory from 'react-router/lib/browserHistory';
+import hashHistory  from 'react-router/lib/hashHistory';
+import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import contextMiddleware from './contextMiddlerware';
 import warning from './warning';
 
@@ -26,8 +26,11 @@ export default class Reduxible {
         }
 
         const history = createMemoryHistory();
-        const store = this.storeFactory.createStore({},
-          [ contextMiddleware({ config: this.config, history, req, res, next }) ]);
+        const store = this.storeFactory.createStore(
+          {},
+          [ contextMiddleware({ config: this.config, history, req, res, next }) ],
+          history
+        );
 
         await this.preInitialize(store);
 
@@ -75,12 +78,16 @@ export default class Reduxible {
 
     let history;
     try {
-      history = this.config.useHashHistory() ? createHashHistory() : createBrowserHistory();
+      history = this.config.useHashHistory() ? hashHistory : browserHistory;
     } catch (error) {
       warning('Failed to initialize browser history. Use memory history.');
       history = createMemoryHistory();
     }
-    const store = this.storeFactory.createStore(initialState, [ contextMiddleware({ config: this.config, history }) ]);
+    const store = this.storeFactory.createStore(
+      initialState,
+      [ contextMiddleware({ config: this.config, history }) ],
+      history
+    );
     const router = this.routerFactory.createRouter(history, store);
 
     router.renderClient(container, callback);

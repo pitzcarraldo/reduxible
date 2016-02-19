@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import Router from 'react-router/lib/Router';
-import RoutingContext from 'react-router/lib/RoutingContext';
+import RouterContext from 'react-router/lib/RouterContext';
 import match from 'react-router/lib/match';
 import Provider from 'react-redux/lib/components/Provider';
-import { syncReduxAndRouter } from 'redux-simple-router';
 
 export default class ReduxibleRouter {
   constructor(options, history, store) {
@@ -16,7 +15,6 @@ export default class ReduxibleRouter {
     this.extras = options.extras;
     this.history = history;
     this.store = store;
-    syncReduxAndRouter(history, store);
   }
 
   static renderComponent({ container, component = <div></div>, error, store = {}, extras = {} }) {
@@ -67,7 +65,7 @@ export default class ReduxibleRouter {
           return resolve([ redirectLocation ]);
         }
         if (renderProps) {
-          return resolve([ null, this.provide(<RoutingContext {...renderProps} />) ]);
+          return resolve([ null, this.provide(<RouterContext {...renderProps} />) ]);
         }
       });
     });
@@ -85,7 +83,7 @@ export default class ReduxibleRouter {
   }
 
   getRouter() {
-    return <Router history={this.history} routes={this.routes}/>;
+    return <Router history={this.history}>{this.routes}</Router>;
   }
 
   getRouterWithDevTools() {
