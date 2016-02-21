@@ -2,11 +2,11 @@
 
 ## The Fast and Easy way to make React + Redux apps
 
-[![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/Pitzcarraldo/reduxible)
-[![Coverage Status](https://coveralls.io/repos/github/Pitzcarraldo/reduxible/badge.svg?branch=master)](https://coveralls.io/github/Pitzcarraldo/reduxible?branch=master)
+[![Build Status](https://travis-ci.org/reduxible/reduxible.svg)](https://travis-ci.org/reduxible/reduxible)
+[![Coverage Status](https://coveralls.io/repos/github/reduxible/reduxible/badge.svg?branch=master)](https://coveralls.io/github/reduxible/reduxible?branch=master)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![npm downloads](https://img.shields.io/npm/dm/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Pitzcarraldo/reduxible)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/reduxible/reduxible)
 
 Universal (Isomorphic) Hot-Loadable and Pluggable(by middleware) Framework for [React](https://facebook.github.io/react/) and [Redux](http://rackt.github.io/redux) applications.
 Reduxible can make it easy to get started to build React and Redux based Web Application and make it able to focus on business codes.
@@ -37,15 +37,13 @@ Reduxible has peer dependencies so that you need to add below dependencies to yo
 
 ```json
   "dependencies": {
-      //...
       "history": "^1.17.0",
-      "react": "^0.14.5",
-      "react-dom": "^0.14.5",
-      "react-redux": "^4.0.0",
+      "react": "^0.14.7",
+      "react-dom": "^0.14.7",
+      "react-redux": "^4.0.6",
       "react-router": "^1.0.3",
-      "redux": "^3.0.4",
+      "redux": "^3.0.6",
       "redux-simple-router": "^1.0.2"
-      //...
     }
 ```
 
@@ -92,7 +90,7 @@ reduxible.client(
 ```js
 import { createAction, createReducer } from 'reduxible';
 
-export const action = createAction({
+export const action = createAction('todo', {
   ADD_TODO: (todo) => {
     return {
       payload: {
@@ -105,7 +103,7 @@ export const action = createAction({
 
 export default createReducer({todos: []},[
   {
-    types: ['ADD_TODO'],
+    types: [action.type('ADD_TODO')],
     reduce: (payload, state) => {
       const { todo } = payload;
       const todos = [...state.todos, todo];

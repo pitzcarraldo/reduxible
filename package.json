@@ -1,10 +1,10 @@
 {
   "name": "reduxible",
   "description": "The Fast and Easy way to make React + Redux apps",
-  "version": "0.1.0-rc1",
+  "version": "0.1.0",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
-  "homepage": "https://github.com/Pitzcarraldo/reduxible",
+  "homepage": "http://reduxible.js.org",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "files": [
@@ -23,10 +23,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pitzcarraldo/reduxible.git"
+    "url": "git+https://github.com/reduxible/reduxible.git"
   },
   "bugs": {
-    "url": "https://github.com/Pitzcarraldo/reduxible/issues"
+    "url": "https://github.com/reduxible/reduxible/issues"
   },
   "keywords": [
     "react",
@@ -60,9 +60,9 @@
     "prepublish": "npm run clean && npm run build",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:prepare && gitbook build -g Pitzcarraldo/reduxible",
+    "docs:build": "npm run docs:prepare && gitbook build -g reduxible/reduxible",
     "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push https://github.com/Pitzcarraldo/reduxible.git gh-pages --force"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push https://github.com/reduxible/reduxible.git gh-pages --force"
   },
   "dependencies": {
     "babel-runtime": "^6.3.19"
