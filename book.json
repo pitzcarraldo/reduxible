@@ -1,13 +1,16 @@
 {
   "gitbook": "2.x.x",
-  "plugins": ["edit-link", "prism", "-highlight", "github"],
+  "plugins": ["edit-link", "prism", "-highlight", "github", "ga"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/Pitzcarraldo/reduxible/tree/master",
+      "base": "https://github.com/reduxible/reduxible/tree/master",
       "label": "Edit This Page"
     },
     "github": {
-      "url": "https://github.com/Pitzcarraldo/reduxible/"
+      "url": "https://github.com/reduxible/reduxible/"
+    },
+    "ga": {
+      "token": "UA-74124129-1"
     }
   }
 }
