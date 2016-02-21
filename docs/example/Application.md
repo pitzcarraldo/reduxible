@@ -4,14 +4,12 @@
 
 ```js
 import Reduxible from 'reduxible';
-import reducers from './reducers';
+import ...
 
 const reduxible = new Reduxible({
-      config: {
-        server: true, //if run in the server, true
-        development: true, //if development environment, true
-        universal: true //if universal application, true
-      },
+      server: true, //if run in the server, true
+      development: true, //if development environment, true
+      universal: true, //if universal application, true
       container: Html, //React Component Class to make <html></html> document.
       errorContainer: Error, //React Component Class will render when error occured.
       devTools: //Redux Dev Tools Component
@@ -29,20 +27,13 @@ const reduxible = new Reduxible({
 ```js
 import { createAction, createReducer } from 'reduxible';
 
-export const action = createAction({
-  ADD_TODO: (todo) => {
-    return {
-      payload: {
-        todo
-      },
-      helper: true
-    };
-  }
+export const action = createAction('todo', {
+  ADD_TODO: (todo) => ({ payload: { todo } })
 });
 
 export default createReducer({todos: []},[
   {
-    types: ['ADD_TODO'],
+    types: [ action.type('ADD_TODO') ],
     reduce: (payload, state) => {
       const { todo } = payload;
       const todos = [...state.todos, todo];

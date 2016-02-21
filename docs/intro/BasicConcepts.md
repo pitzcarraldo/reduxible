@@ -26,4 +26,4 @@ There are many libraries to make a redux application short and simpler. But shor
 
 ## Framework for nowadays
 
-Considerable related things with React and Redux are not compatible with legacy environments like low versions of Internet Explorer. But many enterprise and services can't ignore them. Therefore, Reduxible is focusing to compatibility for support Internet Explorer 8 at least with some shims. And it also can be easily integrated with spring that one of the most popular platform. (please refer the [example project](https://github.com/Pitzcarraldo/reduxible-example).)
+Considerable related things with React and Redux are not compatible with legacy environments like low versions of Internet Explorer. But many enterprise and services can't ignore them. Therefore, Reduxible is focusing to compatibility for support Internet Explorer 8 at least with some shims. And it also can be easily integrated with spring that one of the most popular platform. (please refer the [example project](https://github.com/reduxible/reduxible-example).)

@@ -31,7 +31,7 @@ A React Component that renders a response when it does not succeed. If this is e
 
 ### `devTools: redux dev tools component`
 
-A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It returns a result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have a function called `composers` that returns DevTools.instrument() and debug-session. See [this example](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/helpers/DevTools.js).
+A [Redux DevTools](https://github.com/gaearon/redux-devtools) Component. It returns a result of createDevTools of Redux DevTools like [this](https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js). And devTools must have a function called `composers` that returns DevTools.instrument() and debug-session. See [this example](https://github.com/reduxible/reduxible-example/blob/master/src/universal/helpers/DevTools.js).
 
 ### `routes: object`
 
@@ -55,7 +55,7 @@ A function that executed when hot modules are reloaded. A Reducer replacement co
 
 ### `initialActions: array (experimental)`
 
-The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, the server will render the initial state with error logs. For detail, see [this example project](https://github.com/Pitzcarraldo/reduxible-example/blob/master/src/universal/services/initialActions.js).
+The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, the server will render the initial state with error logs. For detail, see [this example project](https://github.com/reduxible/reduxible-example/blob/master/src/universal/services/initialActions.js).
 
 ### `extras: object`
 

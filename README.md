@@ -53,14 +53,12 @@ Reduxible has peer dependencies so that you need to add below dependencies to yo
 
 ```js
 import Reduxible from 'reduxible';
-import reducers from './reducers';
+import ...
 
 const reduxible = new Reduxible({
-      config: {
-        server: true, //if run in the server, true
-        development: true, //if development environment, true
-        universal: true //if universal application, true
-      },
+      server: true, //if run in the server, true
+      development: true, //if development environment, true
+      universal: true, //if universal application, true
       container: Html, //React Component Class to make <html></html> document.
       errorContainer: Error, //React Component Class will render when error occured.
       devTools: //Redux Dev Tools Component
