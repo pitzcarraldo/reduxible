@@ -1,8 +1,11 @@
-## 0.0.3
+## 0.1.0
 
 * Refactored Reduxible and ReduxibleRouter.
+* Added namespace support to `createAction`.
+* Added providerMiddleware.
 * Added Test Cases.
 * Added Gitbook Docs.
+* Moved repository to `Reduxible` organization.
 
 ## 0.0.2
 
