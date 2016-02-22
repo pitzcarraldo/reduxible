@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Constructor API | Reduxible</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.5">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../docs/api/Instance.html" />
+    
+    
+    <link rel="prev" href="../../docs/api/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2.1"
+        data-chapter-title="Constructor API"
+        data-filepath="docs/api/Constructor.md"
+        data-basepath="../.."
+        data-revision="Mon Feb 22 2016 20:57:50 GMT+0900 (KST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/intro/index.html">
+            
+                
+                    <a href="../../docs/intro/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Intro
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/intro/WhyReduxible.html">
+            
+                
+                    <a href="../../docs/intro/WhyReduxible.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Why Reduxible?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/intro/BasicConcepts.html">
+            
+                
+                    <a href="../../docs/intro/BasicConcepts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Basic Concepts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/intro/Installation.html">
+            
+                
+                    <a href="../../docs/intro/Installation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Installation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="docs/intro/Dependencies.html">
+            
+                
+                    <a href="../../docs/intro/Dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Dependencies
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/api/index.html">
+            
+                
+                    <a href="../../docs/api/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        API Reference
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.1" data-path="docs/api/Constructor.html">
+            
+                
+                    <a href="../../docs/api/Constructor.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Constructor API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="docs/api/Instance.html">
+            
+                
+                    <a href="../../docs/api/Instance.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Instance API
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="docs/api/Utilities.html">
+            
+                
+                    <a href="../../docs/api/Utilities.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Utilities
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/example/index.html">
+            
+                
+                    <a href="../../docs/example/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Example
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="docs/example/Application.html">
+            
+                
+                    <a href="../../docs/example/Application.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Full Reduxible Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="docs/example/SampleProjects.html">
+            
+                
+                    <a href="../../docs/example/SampleProjects.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Sample Projects
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="CHANGELOG.html">
+            
+                
+                    <a href="../../CHANGELOG.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Change Log
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Reduxible</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="reduxible-constructor">Reduxible Constructor</h1>
+<p>A class to make a Reduxible instance. You can make a Reduxible instance for the server, client, or both of them by configuration. It needs some option parameters below.</p>
+<h2 id="options"><code>Options</code></h2>
+<h3 id="configrequired"><code>config(required)</code></h3>
+<p>An object to set up the environment. All types are boolean, and the default value is false.</p>
+<ul>
+<li><code>server</code>: A flag to determine a location for the instance, server or client. If this flag is true, the Reduxible instance will work for the server.</li>
+<li><code>development</code>: A flag to determine an environment. If this flag is true, some development functions will be activated. (like Webpack Dev Server, DevTools, etc.)</li>
+<li><code>universal</code>: A flag to determine whether it is a Universal Application or not. If this flag is true, some universal functions will be enabled. If you want to make this Application to Single Page Application, set this to false.</li>
+<li><code>hashHistory</code>: Use hashHistory when this is true. It will work only universal is false. (Only for Single Page Application.)</li>
+</ul>
+<h3 id="container-react-component"><code>container: react component</code></h3>
+<p>A React Component that makes a HTML layout. This returns elements like <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code>. Below items will provide by props.</p>
+<ul>
+<li><code>component</code>: React element to render into the container.</li>
+<li><code>error</code>: Occurred Error. This means you can use this container to errorContainer too.</li>
+<li><code>store</code>: Initialized Redux Store.</li>
+<li><code>extras</code>: Extra values to use in the container. Extras will be spread. ({...extras})</li>
+</ul>
+<h3 id="errorcontainer-react-component"><code>errorContainer: react component</code></h3>
+<p>A React Component that renders a response when it does not succeed. If this is empty, Application will return a raw error stack with string.</p>
+<ul>
+<li><code>error</code>: React element to render into the container.</li>
+<li><code>extras</code>: Same with extras of container.</li>
+</ul>
+<h3 id="devtools-redux-dev-tools-component"><code>devTools: redux dev tools component</code></h3>
+<p>A <a href="https://github.com/gaearon/redux-devtools" target="_blank">Redux DevTools</a> Component. It returns a result of createDevTools of Redux DevTools like <a href="https://github.com/gaearon/redux-devtools/blob/master/examples/todomvc/containers/DevTools.js" target="_blank">this</a>. And devTools must have a function called <code>composers</code> that returns DevTools.instrument() and debug-session. See <a href="https://github.com/reduxible/reduxible-example/blob/master/src/universal/helpers/DevTools.js" target="_blank">this example</a>.</p>
+<h3 id="routes-object"><code>routes: object</code></h3>
+<p>A plain route of react-router.(<a href="https://github.com/rackt/react-router/blob/1.0.x/docs/API.md#plainroute" target="_blank">see this</a>).</p>
+<h3 id="middlewares-array"><code>middlewares: array</code></h3>
+<p>An array that contains redux middlewares.</p>
+<ul>
+<li><code>contextMiddleware</code>: The contextMiddleware will be injected before other middlewares. It will add a <code>context</code> field to every action. The <code>context</code> field has below information. You can add more properties to the context in your own middleware.<ul>
+<li>server or client: A flag presenting the current environment.</li>
+<li>req/res/next (only server): Express middleware objects.</li>
+</ul>
+</li>
+</ul>
+<h3 id="reducers-object"><code>reducers: object</code></h3>
+<p>An object that contains redux reducers to be used after combining.</p>
+<h3 id="reloader-function"><code>reloader: function</code></h3>
+<p>A function that executed when hot modules are reloaded. A Reducer replacement codes have to be placed in this.</p>
+<h3 id="initialactions-array-experimental"><code>initialActions: array (experimental)</code></h3>
+<p>The List of Actions that has to be executed before rendering. They will be reduced shortly after being created on the server. So states also will be updated before connecting with React Components. You can place async actions invoked here before the first rendering. When if they were failed, the server will render the initial state with error logs. For detail, see <a href="https://github.com/reduxible/reduxible-example/blob/master/src/universal/services/initialActions.js" target="_blank">this example project</a>.</p>
+<h3 id="extras-object"><code>extras: object</code></h3>
+<p>Extra options that you want to use in the Reduxible Application. These will be injected into the container.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../docs/api/index.html" class="navigation navigation-prev " aria-label="Previous page: API Reference"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../docs/api/Instance.html" class="navigation navigation-next " aria-label="Next page: Instance API"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-github/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"edit-link":{"base":"https://github.com/reduxible/reduxible/tree/master","label":"Edit This Page"},"github":{"url":"https://github.com/reduxible/reduxible/"},"ga":{"token":"UA-74124129-1","configuration":"auto"},"prism":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
