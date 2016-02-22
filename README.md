@@ -1,6 +1,6 @@
 # [Reduxible](http://reduxible.js.org/)
 
-## The Fast and Easy way to make React + Redux apps
+## The Quick and Easy way to make React + Redux Applications
 
 [![Build Status](https://travis-ci.org/reduxible/reduxible.svg)](https://travis-ci.org/reduxible/reduxible)
 [![Coverage Status](https://coveralls.io/repos/github/reduxible/reduxible/badge.svg?branch=master)](https://coveralls.io/github/reduxible/reduxible?branch=master)
