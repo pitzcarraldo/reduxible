@@ -1,9 +1,8 @@
 import ReduxibleConfig from './ReduxibleConfig';
 import StoreFactory from './StoreFactory';
 import RouterFactory from './RouterFactory';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import createHashHistory from 'history/lib/createHashHistory';
-import createMemoryHistory from 'history/lib/createMemoryHistory';
+import createMemoryHistory from 'react-router/lib/createMemoryHistory';
+import { routerMiddleware } from 'react-router-redux';
 import contextMiddleware from './contextMiddlerware';
 import warning from './warning';
 
@@ -28,12 +27,18 @@ export default class Reduxible {
         }
 
         const history = createMemoryHistory();
+        const context = { config: this.config, history, req, res, next };
         const store = this.storeFactory.createStore({},
-          [contextMiddleware({ config: this.config, history, req, res, next })]);
+          [
+            contextMiddleware(context),
+            routerMiddleware(history)
+          ]
+        );
 
         await this.preInitialize(store);
 
         const router = this.routerFactory.createRouter(history, store);
+        context.router = router;
         const url = req.originalUrl || req.url || '/';
         const { redirectLocation, rendered } = await router.renderServer(url, store);
 
@@ -80,15 +85,21 @@ export default class Reduxible {
 
     let history;
     try {
-      history = this.config.useHashHistory() ? createHashHistory() : createBrowserHistory();
+      history = this.config.useHashHistory() ?
+        require('react-router/lib/hashHistory') :
+        require('react-router/lib/browserHistory');
     } catch (error) {
       warning('Failed to initialize browser history. Use memory history.');
       history = createMemoryHistory();
     }
+    const context = { config: this.config, history };
     const store = this.storeFactory.createStore(initialState,
-      [contextMiddleware({ config: this.config, history })]);
+      [
+        contextMiddleware(context),
+        routerMiddleware(history)
+      ]);
     const router = this.routerFactory.createRouter(history, store);
-
+    context.router = router;
     router.renderClient(container, callback);
 
     if (this.config.useDevTools()) {

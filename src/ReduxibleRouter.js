@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import Router from 'react-router/lib/Router';
-import RoutingContext from 'react-router/lib/RoutingContext';
+import RouterContext from 'react-router/lib/RouterContext';
 import match from 'react-router/lib/match';
 import Provider from 'react-redux/lib/components/Provider';
-import { syncReduxAndRouter } from 'redux-simple-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 export default class ReduxibleRouter {
   constructor(options, history, store) {
@@ -16,15 +16,15 @@ export default class ReduxibleRouter {
     this.extras = options.extras;
     this.history = history;
     this.store = store;
-    syncReduxAndRouter(history, store);
+    syncHistoryWithStore(history, store);
   }
 
   static renderComponent({ container, component = <div></div>, error, store = {}, extras = {} }) {
     const Html = container;
     return `<!doctype html>
       ${ReactDOMServer.renderToString(
-        <Html component={component} error={error} store={store} { ...extras } />
-      )}`;
+      <Html component={component} error={error} store={store} { ...extras } />
+    )}`;
   }
 
   provide(children) {
@@ -71,11 +71,7 @@ export default class ReduxibleRouter {
           return resolve([redirectLocation]);
         }
 
-        if (renderProps) {
-          return resolve([null, this.provide(<RoutingContext {...renderProps} />)]);
-        }
-
-        return null;
+        return resolve([null, this.provide(<RouterContext {...renderProps} />)]);
       });
     });
   }
