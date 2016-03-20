@@ -1,8 +1,6 @@
 export default function contextMiddleware(context) {
-  return () => {
-    return next => action => {
-      action.context = context;
-      return next(action);
-    };
-  };
+  return () =>
+    next =>
+      action =>
+        next({ ...action, context });
 }

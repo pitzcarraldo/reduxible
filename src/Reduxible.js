@@ -17,7 +17,9 @@ export default class Reduxible {
 
   server() {
     if (!this.config.isServer()) {
-      throw new Error('A server() only can be called in server environment. Please check your config arguments.');
+      throw new Error(
+        'A server() only can be called in server environment. Please check your config arguments.'
+      );
     }
     return async(req, res, next) => {
       try {
@@ -27,7 +29,7 @@ export default class Reduxible {
 
         const history = createMemoryHistory();
         const store = this.storeFactory.createStore({},
-          [ contextMiddleware({ config: this.config, history, req, res, next }) ]);
+          [contextMiddleware({ config: this.config, history, req, res, next })]);
 
         await this.preInitialize(store);
 
@@ -41,7 +43,6 @@ export default class Reduxible {
 
         return res.send(rendered);
       } catch (error) {
-
         warning(error.stack);
 
         if (error.component) {
@@ -56,17 +57,21 @@ export default class Reduxible {
 
   async preInitialize(store) {
     try {
-      const willDispatch = this.initialActions.map(action => Promise.resolve(store.dispatch(action)));
+      const willDispatch = this.initialActions.map(action =>
+        Promise.resolve(store.dispatch(action)));
       return await Promise.all(willDispatch);
     } catch (error) {
       warning('Failed to PreInitialize. Render with initialStates.');
       warning(error.stack);
+      return await Promise.reject(error);
     }
   }
 
   client(initialState = {}, container, callback) {
     if (!this.config.isClient()) {
-      throw new Error('A client() only can be called in browser. Please check your config arguments.');
+      throw new Error(
+        'A client() only can be called in browser. Please check your config arguments.'
+      );
     }
 
     if (!container) {
@@ -80,7 +85,8 @@ export default class Reduxible {
       warning('Failed to initialize browser history. Use memory history.');
       history = createMemoryHistory();
     }
-    const store = this.storeFactory.createStore(initialState, [ contextMiddleware({ config: this.config, history }) ]);
+    const store = this.storeFactory.createStore(initialState,
+      [contextMiddleware({ config: this.config, history })]);
     const router = this.routerFactory.createRouter(history, store);
 
     router.renderClient(container, callback);

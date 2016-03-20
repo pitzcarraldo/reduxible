@@ -18,7 +18,7 @@ export default class StoreFactory {
 
   createStore(initialState = {}, middlewares = []) {
     let finalCreateStore;
-    let appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
+    const appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
 
     if (this.useDevTools && this.devTools) {
       finalCreateStore = compose(

@@ -3,7 +3,6 @@ import React from 'react';
 import ReduxibleConfig from '../src/ReduxibleConfig';
 
 describe('ReduxibleConfig', () => {
-
   it('isServer should returns true when server is true', () => {
     const config = new ReduxibleConfig({
       server: true

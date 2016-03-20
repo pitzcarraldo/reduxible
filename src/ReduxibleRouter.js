@@ -21,10 +21,10 @@ export default class ReduxibleRouter {
 
   static renderComponent({ container, component = <div></div>, error, store = {}, extras = {} }) {
     const Html = container;
-    return '<!doctype html>\n' +
-      ReactDOMServer.renderToString(
+    return `<!doctype html>
+      ${ReactDOMServer.renderToString(
         <Html component={component} error={error} store={store} { ...extras } />
-      );
+      )}`;
   }
 
   provide(children) {
@@ -37,7 +37,7 @@ export default class ReduxibleRouter {
 
   async renderServer(location) {
     try {
-      const [ redirectLocation, component ] = await this.route(location);
+      const [redirectLocation, component] = await this.route(location);
       const { container, store, extras } = this;
       return {
         redirectLocation,
@@ -60,15 +60,22 @@ export default class ReduxibleRouter {
         }
 
         if (!redirectLocation && !renderProps) {
-          return reject(new Error('Failed to route. There is no matching path. Please check your routes configuration.'));
+          return reject(
+            new Error(
+              'Failed to route. There is no matching path. Please check your routes configuration.'
+            )
+          );
         }
 
         if (redirectLocation) {
-          return resolve([ redirectLocation ]);
+          return resolve([redirectLocation]);
         }
+
         if (renderProps) {
-          return resolve([ null, this.provide(<RoutingContext {...renderProps} />) ]);
+          return resolve([null, this.provide(<RoutingContext {...renderProps} />)]);
         }
+
+        return null;
       });
     });
   }
@@ -85,14 +92,14 @@ export default class ReduxibleRouter {
   }
 
   getRouter() {
-    return <Router history={this.history} routes={this.routes}/>;
+    return <Router history={this.history} routes={this.routes} />;
   }
 
   getRouterWithDevTools() {
     const DevTools = this.devTools;
     return (
       <div>
-        {this.getRouter()} <DevTools/>
+        {this.getRouter()} <DevTools />
       </div>
     );
   }

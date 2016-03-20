@@ -8,13 +8,19 @@ export default class RouterFactory {
 
   validate() {
     if (typeof this.options.container !== 'function') {
-      throw new Error('A container has to be a react element factory. Please check your config arguments.');
+      throw new Error(
+        'A container has to be a react element factory. Please check your config arguments.'
+      );
     }
     if (this.options.errorContainer && typeof this.options.errorContainer !== 'function') {
-      throw new Error('A errorContainer has to be a react element factory. Please check your config arguments.');
+      throw new Error(
+        'A errorContainer has to be a react element factory. Please check your config arguments.'
+      );
     }
     if (!this.options.routes) {
-      throw new Error('A routes is empty. Please check your config arguments.');
+      throw new Error(
+        'A routes is empty. Please check your config arguments.'
+      );
     }
   }
 

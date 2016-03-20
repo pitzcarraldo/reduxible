@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routeReducer }  from 'redux-simple-router';
+import { routeReducer } from 'redux-simple-router';
 
 export function combineRouteReducers(reducers) {
   return combineReducers({ ...reducers, routing: routeReducer });
@@ -13,15 +13,15 @@ export function combineRouteReducers(reducers) {
 export function createAction(...args) {
   const namespace = args[1] && `${args[0]}/` || '';
   const actions = args[1] || args[0];
-  const action = type =>
-    (...args) => {
+  const reduxAction = type =>
+    (...actionArgs) => {
       let action = {};
 
       if (actions[type]) {
         switch (typeof actions[type]) {
           case 'function' :
             {
-              action = actions[type](...args);
+              action = actions[type](...actionArgs);
               break;
             }
           case 'object' :
@@ -43,8 +43,8 @@ export function createAction(...args) {
         type: namespace + type
       };
     };
-  action.type = type => namespace + type;
-  return action;
+  reduxAction.type = type => namespace + type;
+  return reduxAction;
 }
 
 /**
@@ -54,15 +54,16 @@ export function createAction(...args) {
  * @returns {Function} reducer - reducer
  */
 export function createReducer(initialState = {}, reducers = []) {
-  const REDUCERS = reducers.reduce((reducers, reducer) => {
+  const REDUCERS = reducers.reduce((currentReducers, reducer) => {
     if (!reducer.types || !reducer.types.length) {
-      return reducers;
+      return currentReducers;
     }
     return reducer.types.reduce((prevReducers, type) => {
-      prevReducers[type] = prevReducers[type] || [];
-      prevReducers[type].push(reducer.reduce);
-      return prevReducers;
-    }, reducers);
+      const nextReducers = { ...prevReducers };
+      nextReducers[type] = prevReducers[type] || [];
+      nextReducers[type].push(reducer.reduce);
+      return nextReducers;
+    }, currentReducers);
   }, {});
 
   return (state = initialState, action) => {

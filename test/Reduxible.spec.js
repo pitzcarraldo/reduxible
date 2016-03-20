@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import { spy } from 'sinon';
 import sinonChai from 'sinon-chai';
+import dirtyChai from 'dirty-chai';
 import React from 'react';
 import { combineRouteReducers } from '../src/utils';
 import Reduxible from '../src/Reduxible';
@@ -8,6 +9,7 @@ import { createReducer } from '../src/utils';
 import httpMocks from 'node-mocks-http';
 
 chai.use(sinonChai);
+chai.use(dirtyChai);
 
 describe('Reduxible', () => {
   const mockContainer = () => <div></div>;
@@ -49,7 +51,11 @@ describe('Reduxible', () => {
     });
 
     it('should throws error when errorContainer is not react element factory', () => {
-      expect(() => new Reduxible({ container: ()=><div></div>, errorContainer: <div></div> })).to.throw(Error);
+      expect(() =>
+        new Reduxible({
+          container: () => <div></div>,
+          errorContainer: <div></div>
+        })).to.throw(Error);
     });
 
     it('should throws error when routes is empty', () => {
@@ -72,14 +78,14 @@ describe('Reduxible', () => {
     const res = httpMocks.createResponse();
     res.send = spy();
     res.redirect = spy();
-    const next = spy();
+    const mockNext = spy();
 
     it('should throws error when server is undefined or false', () => {
       const reduxible = new Reduxible(mockOptions);
-      expect(()=>reduxible.server()).to.throw(Error);
+      expect(() => reduxible.server()).to.throw(Error);
 
       reduxible.config.server = false;
-      expect(()=>reduxible.server()).to.throw(Error);
+      expect(() => reduxible.server()).to.throw(Error);
     });
 
     it('should returns express middleware function', () => {
@@ -90,8 +96,8 @@ describe('Reduxible', () => {
     it('should call res.send string when universal is false or undefined', async(done) => {
       try {
         const reduxible = new Reduxible(serverMockOptions);
-        await reduxible.server()(req, res, next);
-        expect(res.send).to.have.been.called;
+        await reduxible.server()(req, res, mockNext);
+        expect(res.send).to.have.been.called();
         done();
       } catch (error) {
         done(error);
@@ -104,8 +110,8 @@ describe('Reduxible', () => {
         options.config.universal = true;
         const reduxible = new Reduxible(options);
         req.url = '/none';
-        await reduxible.server()(req, res, next);
-        expect(next).to.have.been.called;
+        await reduxible.server()(req, res, mockNext);
+        expect(mockNext).to.have.been.called();
         done();
       } catch (error) {
         done(error);
@@ -118,24 +124,25 @@ describe('Reduxible', () => {
         options.config.universal = true;
         const reduxible = new Reduxible(options);
         req.url = '/error';
-        await reduxible.server()(req, res, next);
-        expect(next).to.have.been.called;
+        await reduxible.server()(req, res, mockNext);
+        expect(mockNext).to.have.been.called();
         done();
       } catch (error) {
         done(error);
       }
     });
 
-    it('should call res.send with errorContainer when there is no matching route path and there is errorContainer', async(done) => {
+    it('should call res.send with errorContainer when there is' +
+      'no matching route path and there is errorContainer', async(done) => {
       try {
         const options = { ...serverMockOptions };
         options.config.universal = true;
         options.errorContainer = mockContainer;
         const reduxible = new Reduxible(options);
         req.url = '/none';
-        await reduxible.server()(req, res, next);
+        await reduxible.server()(req, res, mockNext);
         expect(res.statusCode).to.be.equals(500);
-        expect(res.send).to.have.been.called;
+        expect(res.send).to.have.been.called();
         done();
       } catch (error) {
         done(error);
@@ -148,7 +155,7 @@ describe('Reduxible', () => {
         options.config.universal = true;
         const reduxible = new Reduxible(options);
         req.url = '/redirect';
-        await reduxible.server()(req, res, next);
+        await reduxible.server()(req, res, mockNext);
         expect(res.redirect).to.have.been.calledWith('/');
         done();
       } catch (error) {
@@ -162,44 +169,42 @@ describe('Reduxible', () => {
         options.config.universal = true;
         const reduxible = new Reduxible(options);
         req.url = '/';
-        await reduxible.server()(req, res, next);
-        expect(res.send).to.have.been.called;
+        await reduxible.server()(req, res, mockNext);
+        expect(res.send).to.have.been.called();
         done();
       } catch (error) {
         done(error);
       }
     });
 
-    it('should call res.send when there is matching route path even initialAction will failed', async(done) => {
+    it('should call res.send when there is matching route path' +
+      'even initialAction will failed', async(done) => {
       try {
         const options = { ...serverMockOptions };
         options.config.universal = true;
         options.middlewares = [
-          ({ dispatch, getState }) => {
-            return next => action => {
-              if (action.thunk) {
-                return action.thunk(dispatch, getState);
-              }
-              return next(action);
-            };
+          ({ dispatch, getState }) => next => action => {
+            if (action.thunk) {
+              return action.thunk(dispatch, getState);
+            }
+            return next(action);
           }
         ];
-        options.initialActions = [ {
+        options.initialActions = [{
           type: 'ERROR_ACTION',
-          thunk: ()=> {
+          thunk: () => {
             throw new Error('Action Error');
           }
-        } ];
+        }];
         const reduxible = new Reduxible(options);
         req.url = '/';
-        await reduxible.server()(req, res, next);
-        expect(res.send).to.have.been.called;
+        await reduxible.server()(req, res, mockNext);
+        expect(res.send).to.have.been.called();
         done();
       } catch (error) {
         done(error);
       }
     });
-
   });
 
   describe('client', () => {
@@ -213,19 +218,19 @@ describe('Reduxible', () => {
     it('should throws error when server is true', () => {
       const reduxible = new Reduxible(mockOptions);
       reduxible.config.server = true;
-      expect(()=>reduxible.client()).to.throw(Error);
+      expect(() => reduxible.client()).to.throw(Error);
     });
 
     it('should throws error when container is empty', () => {
       const reduxible = new Reduxible(mockOptions);
-      expect(()=>reduxible.client()).to.throw(Error);
+      expect(() => reduxible.client()).to.throw(Error);
     });
 
     it('should render client element to container', () => {
       const reduxible = new Reduxible(mockOptions);
       const container = document.createElement('div');
       reduxible.client({}, container);
-      expect(container.innerHTML).not.to.be.empty;
+      expect(container.innerHTML).not.to.be.empty();
     });
   });
 });
