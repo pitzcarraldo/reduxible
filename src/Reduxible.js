@@ -26,7 +26,8 @@ export default class Reduxible {
           return res.send(this.routerFactory.renderContainer());
         }
 
-        const history = createMemoryHistory();
+        const url = req.originalUrl || req.url || '/';
+        const history = createMemoryHistory(url);
         const context = { config: this.config, history, req, res, next };
         const store = this.storeFactory.createStore({},
           [
@@ -38,8 +39,6 @@ export default class Reduxible {
         await this.preInitialize(store);
 
         const router = this.routerFactory.createRouter(history, store);
-        context.router = router;
-        const url = req.originalUrl || req.url || '/';
         const { redirectLocation, rendered } = await router.renderServer(url, store);
 
         if (redirectLocation) {
@@ -99,7 +98,6 @@ export default class Reduxible {
         routerMiddleware(history)
       ]);
     const router = this.routerFactory.createRouter(history, store);
-    context.router = router;
     router.renderClient(container, callback);
 
     if (this.config.useDevTools()) {
