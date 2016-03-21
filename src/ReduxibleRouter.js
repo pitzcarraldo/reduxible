@@ -14,9 +14,8 @@ export default class ReduxibleRouter {
     this.errorContainer = options.errorContainer;
     this.devTools = options.devTools;
     this.extras = options.extras;
-    this.history = history;
+    this.history = syncHistoryWithStore(history, store);
     this.store = store;
-    syncHistoryWithStore(history, store);
   }
 
   static renderComponent({ container, component = <div></div>, error, store = {}, extras = {} }) {
