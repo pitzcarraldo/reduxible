@@ -226,11 +226,12 @@ describe('Reduxible', () => {
       expect(() => reduxible.client()).to.throw(Error);
     });
 
-    it('should render client element to container', () => {
+    it('should render client element to container', async (done) => {
       const reduxible = new Reduxible(mockOptions);
       const container = document.createElement('div');
-      reduxible.client({}, container);
+      await reduxible.client({}, container);
       expect(container.innerHTML).not.to.be.empty();
+      done();
     });
   });
 });
