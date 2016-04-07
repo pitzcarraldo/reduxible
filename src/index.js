@@ -1,8 +1,10 @@
 import Reduxible from './Reduxible';
-import { createAction, createReducer, combineRouteReducers } from './utils';
+import { createAction, createReducer, combineReduxibleReducers } from './utils';
+import initialActions from './contextService';
 export default Reduxible;
 export {
   createAction,
   createReducer,
-  combineRouteReducers
+  combineReduxibleReducers,
+  initialActions
 };

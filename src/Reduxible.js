@@ -3,7 +3,6 @@ import StoreFactory from './StoreFactory';
 import RouterFactory from './RouterFactory';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import { routerMiddleware } from 'react-router-redux';
-import contextMiddleware from './contextMiddlerware';
 import warning from './warning';
 
 export default class Reduxible {
@@ -11,7 +10,6 @@ export default class Reduxible {
     this.config = new ReduxibleConfig(options.config || options);
     this.routerFactory = new RouterFactory(options);
     this.storeFactory = new StoreFactory({ ...options, useDevTools: this.config.useDevTools() });
-    this.initialActions = options.initialActions || [];
   }
 
   server() {
@@ -29,15 +27,7 @@ export default class Reduxible {
         const url = req.originalUrl || req.url || '/';
         const history = createMemoryHistory(url);
         const context = { config: this.config, history, req, res, next };
-        const store = this.storeFactory.createStore({},
-          [
-            contextMiddleware(context),
-            routerMiddleware(history)
-          ]
-        );
-
-        await this.preInitialize(store);
-
+        const store = this.storeFactory.createStore({ context }, routerMiddleware(history));
         const router = this.routerFactory.createRouter(history, store);
         const { redirectLocation, rendered } = await router.renderServer(url, store);
 
@@ -57,18 +47,6 @@ export default class Reduxible {
         return next(error);
       }
     };
-  }
-
-  async preInitialize(store) {
-    try {
-      const willDispatch = this.initialActions.map(action =>
-        Promise.resolve(store.dispatch(action)));
-      return await Promise.all(willDispatch);
-    } catch (error) {
-      warning('Failed to PreInitialize. Render with initialStates.');
-      warning(error.stack);
-      return await Promise.reject(error);
-    }
   }
 
   client(initialState = {}, container, callback) {
@@ -92,11 +70,7 @@ export default class Reduxible {
       history = createMemoryHistory();
     }
     const context = { config: this.config, history };
-    const store = this.storeFactory.createStore(initialState,
-      [
-        contextMiddleware(context),
-        routerMiddleware(history)
-      ]);
+    const store = this.storeFactory.createStore({ ...initialState, context }, routerMiddleware(history));
     const router = this.routerFactory.createRouter(history, store);
     router.renderClient(container, callback);
 

@@ -16,7 +16,7 @@ export default class StoreFactory {
     }
   }
 
-  createStore(initialState = {}, middlewares = []) {
+  createStore(initialState = {}, ...middlewares) {
     let finalCreateStore;
     const appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
 

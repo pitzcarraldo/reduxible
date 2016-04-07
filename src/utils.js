@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { routerReducer as routing } from 'react-router-redux';
+import { reducer as context } from './contextService';
 
-export function combineRouteReducers(reducers) {
-  return combineReducers({ ...reducers, routing: routerReducer });
+export function combineReduxibleReducers(reducers) {
+  return combineReducers({ ...reducers, context, routing });
 }
 
 /**
@@ -20,15 +21,15 @@ export function createAction(...args) {
       if (actions[type]) {
         switch (typeof actions[type]) {
           case 'function' :
-            {
-              action = actions[type](...actionArgs);
-              break;
-            }
+          {
+            action = actions[type](...actionArgs);
+            break;
+          }
           case 'object' :
-            {
-              action = actions[type];
-              break;
-            }
+          {
+            action = actions[type];
+            break;
+          }
           default :
             action = { payload: actions[type] };
         }
@@ -59,7 +60,7 @@ export function createReducer(initialState = {}, reducers = []) {
       return currentReducers;
     }
     return reducer.types.reduce((prevReducers, type) => {
-      const nextReducers = { ...prevReducers };
+      const nextReducers = prevReducers;
       nextReducers[type] = prevReducers[type] || [];
       nextReducers[type].push(reducer.reduce);
       return nextReducers;
@@ -71,7 +72,10 @@ export function createReducer(initialState = {}, reducers = []) {
       return state;
     }
     return REDUCERS[action.type].reduce(
-      (prevState, reduce) => ({ ...reduce(action, prevState) }), state
+      (prevState, reduce) => ({ ...reduce(action, prevState) }),
+      state
     );
   };
 }
+
+
