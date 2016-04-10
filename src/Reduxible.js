@@ -69,7 +69,8 @@ export default class Reduxible {
       warning('Failed to initialize browser history. Use memory history.');
       history = createMemoryHistory();
     }
-    const initialized = (initialState && initialState.context && initialState.context.initialized) || false;
+    const initialized =
+      (initialState && initialState.context && initialState.context.initialized) || false;
     const context = { config: this.config, initialized };
     const store = this.storeFactory.createStore(
       { ...initialState, context }, routerMiddleware(history)

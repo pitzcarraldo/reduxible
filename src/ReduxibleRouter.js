@@ -148,7 +148,7 @@ export default class ReduxibleRouter {
   }
 
   getRouter(renderProps, routes, history) {
-    return <Router {...renderProps} routes={routes} history={history}/>;
+    return <Router {...renderProps} routes={routes} history={history} />;
   }
 
   getRouterWithDevTools(renderProps, routes, history) {
