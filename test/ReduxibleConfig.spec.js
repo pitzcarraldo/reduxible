@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'cafeteria';
 import React from 'react';
 import ReduxibleConfig from '../src/ReduxibleConfig';
 

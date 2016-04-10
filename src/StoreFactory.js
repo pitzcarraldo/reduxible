@@ -34,7 +34,6 @@ export default class StoreFactory {
     if (this.reloader) {
       this.reloader(store);
     }
-
     return store;
   }
 }

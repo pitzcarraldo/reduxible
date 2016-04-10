@@ -26,7 +26,7 @@ export default class Reduxible {
 
         const url = req.originalUrl || req.url || '/';
         const history = createMemoryHistory(url);
-        const context = { config: this.config, history, req, res, next };
+        const context = { config: this.config, req };
         const store = this.storeFactory.createStore({ context }, routerMiddleware(history));
         const router = this.routerFactory.createRouter(history, store);
         const { redirectLocation, rendered } = await router.renderServer(url, store);
@@ -69,8 +69,11 @@ export default class Reduxible {
       warning('Failed to initialize browser history. Use memory history.');
       history = createMemoryHistory();
     }
-    const context = { config: this.config, history };
-    const store = this.storeFactory.createStore({ ...initialState, context }, routerMiddleware(history));
+    const initialized = (initialState && initialState.context && initialState.context.initialized) || false;
+    const context = { config: this.config, initialized };
+    const store = this.storeFactory.createStore(
+      { ...initialState, context }, routerMiddleware(history)
+    );
     const router = this.routerFactory.createRouter(history, store);
     router.renderClient(container, callback);
 

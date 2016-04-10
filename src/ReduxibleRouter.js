@@ -25,7 +25,7 @@ export default class ReduxibleRouter {
     try {
       const [redirectLocation, renderProps] = await this.route(this.routes, this.history, location);
       const { container, store, extras } = this;
-      await this.preInitialize(store, renderProps.components);
+      if (renderProps) await this.preInitialize(store, renderProps.components);
       const component = this.provide(<RouterContext {...renderProps} />);
       return {
         redirectLocation,
@@ -42,27 +42,37 @@ export default class ReduxibleRouter {
 
   async renderClient(container, callback) {
     let router;
+    const components = [];
     try {
       const [, renderProps] = await this.route(this.routes, this.history, this.getLocation());
+      components.push(...renderProps.components);
       router = this.provide(this.getRouter(renderProps));
     } catch (error) {
       warning(error);
       router = this.provide(this.getRouter({}, this.routes, this.history));
     }
-    ReactDOM.render(router, container, callback);
+    ReactDOM.render(router, container, () => {
+      this.preInitialize(this.store, components);
+      if (callback) callback();
+    });
   }
 
   async renderClientWithDevTools(container, callback) {
     let router;
+    const components = [];
     try {
       window.React = React;
       const [, renderProps] = await this.route(this.routes, this.history, this.getLocation());
+      components.push(...renderProps.components);
       router = this.provide(this.getRouterWithDevTools(renderProps));
     } catch (error) {
       warning(error);
       router = this.provide(this.getRouterWithDevTools({}, this.routes, this.history));
     }
-    ReactDOM.render(router, container, callback);
+    ReactDOM.render(router, container, () => {
+      this.preInitialize(this.store, components);
+      if (callback) callback();
+    });
   }
 
   route(routes, history, location) {
@@ -89,17 +99,20 @@ export default class ReduxibleRouter {
     });
   }
 
-  async preInitialize(store, components) {
-    try {
+  preInitialize(store, components) {
+    return new Promise(resolve => {
+      const { context: { initialized } } = store.getState();
+      if (initialized) return;
       const initialActions = [...this.extractActions(components), initialize()];
-      const willDispatch = initialActions.map(action =>
-        Promise.resolve(store.dispatch(action)));
-      return await Promise.all(willDispatch);
-    } catch (error) {
-      warning('Failed to PreInitialize. Render with initialStates.');
-      warning(error.stack);
-      return await Promise.reject(error);
-    }
+      const willDispatch = initialActions.map(action => Promise.resolve(store.dispatch(action)));
+      Promise.all(willDispatch)
+        .then(resolve)
+        .catch(error => {
+          warning('Failed to PreInitialize. Render with initialStates.');
+          warning(error.stack);
+          return resolve(store.dispatch(initialize(false)));
+        });
+    });
   }
 
   extractActions(components) {
@@ -121,9 +134,11 @@ export default class ReduxibleRouter {
 
   static renderComponent({ container, component = <div></div>, error, store = {}, extras = {} }) {
     const Html = container;
+    const state = store && store.getState && { ...store.getState() } || {};
+    if (state && state.context && state.context.req) delete state.context.req;
     return `<!doctype html>
       ${ReactDOMServer.renderToString(
-      <Html component={component} error={error} store={store} { ...extras } />
+      <Html component={component} error={error} store={store} state={state} { ...extras } />
     )}`;
   }
 
@@ -144,5 +159,4 @@ export default class ReduxibleRouter {
       </div>
     );
   }
-
 }

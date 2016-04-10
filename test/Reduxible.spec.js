@@ -1,27 +1,20 @@
-import chai, { expect } from 'chai';
-import { spy } from 'sinon';
-import sinonChai from 'sinon-chai';
-import dirtyChai from 'dirty-chai';
+import { expect, spy } from 'cafeteria';
 import React from 'react';
-import { combineRouteReducers } from '../src/utils';
+import combineReduxibleReducers from '../src/combineReduxibleReducers';
 import Reduxible from '../src/Reduxible';
-import { createReducer } from '../src/utils';
 import httpMocks from 'node-mocks-http';
-
-chai.use(sinonChai);
-chai.use(dirtyChai);
 
 describe('Reduxible', () => {
   const mockContainer = () => <div></div>;
   const mockRoutes = [
     {
       path: '/',
-      component: () => <div></div>,
+      component: () => <div>Home</div>,
       childRoutes: [
         {
           path: 'redirect',
-          onEnter: (nextState, replaceState) => {
-            replaceState(null, '/');
+          onEnter: (nextState, replace) => {
+            replace('/');
           }
         },
         {
@@ -33,7 +26,8 @@ describe('Reduxible', () => {
       ]
     }
   ];
-  const mockReducers = combineRouteReducers({ index: createReducer() });
+  const reducer = (state = {}) => state;
+  const mockReducers = combineReduxibleReducers({ index: reducer });
   const mockOptions = {
     container: mockContainer,
     routes: mockRoutes,
@@ -230,7 +224,7 @@ describe('Reduxible', () => {
       const reduxible = new Reduxible(mockOptions);
       const container = document.createElement('div');
       await reduxible.client({}, container);
-      expect(container.innerHTML).not.to.be.empty();
+      expect(container.innerHTML).to.not.be.empty();
       done();
     });
   });
