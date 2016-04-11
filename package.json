@@ -53,7 +53,7 @@
     "build:lib": "babel src --out-dir lib --source-maps",
     "build:umd": "webpack src/index.js dist/reduxible.js --config webpack/config.development.js",
     "build:umd:min": "webpack src/index.js dist/reduxible.min.js --config webpack/config.production.js",
-    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "build": "npm run clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
