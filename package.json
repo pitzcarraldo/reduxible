@@ -1,7 +1,7 @@
 {
   "name": "reduxible",
   "description": "The Quick and Easy way to make React + Redux Applications",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha1",
   "author": "Minkyu Cho <mrnoname@naver.com>",
   "license": "MIT",
   "homepage": "http://reduxible.js.org",
@@ -57,7 +57,7 @@
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
-    "prepublish": "npm run clean && npm run build",
+    "prepublish": "npm run clean && npm test && npm run build",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build -g reduxible/reduxible",

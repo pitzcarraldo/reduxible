@@ -39,6 +39,7 @@ function isInitialized(initialized = {}, ...keys) {
 
 
 export function preInitialize(store, keys = [], actions = []) {
+  if (!keys.length || !actions.length) return Promise.resolve();
   return new Promise(resolve => {
     const { context: { initialized } } = store.getState();
     if (isInitialized(initialized, ...keys)) return;
@@ -88,7 +89,8 @@ export function reducer(state = { initialized: {} }, { type, payload }) {
       return { ...state, initialized: toggleKeys(state.initialized, payload.keys, true) };
     case INITIALIZE_FAILED:
       return { ...state, initialized: toggleKeys(state.initialized, payload.keys, false) };
-    case REMOVE_REQUEST: {
+    case REMOVE_REQUEST:
+    {
       const nextState = { ...state };
       delete nextState.req;
       return nextState;
