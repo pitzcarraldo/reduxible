@@ -1,12 +1,9 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 
 export default class StoreFactory {
   constructor(options) {
     this.middlewares = options.middlewares || [];
     this.reducers = options.reducers;
-    this.reloader = options.reloader;
-    this.devTools = options.devTools;
-    this.useDevTools = options.useDevTools;
     this.validate();
   }
 
@@ -16,24 +13,13 @@ export default class StoreFactory {
     }
   }
 
-  createStore(initialState = {}, ...middlewares) {
-    let finalCreateStore;
-    const appliedMiddleware = applyMiddleware(...middlewares, ...this.middlewares);
+  createStore(initialState = {}, extraMiddlewares = []) {
+    const middlewares = [
+      ...this.middlewares,
+      ...extraMiddlewares
+    ];
 
-    if (this.useDevTools && this.devTools) {
-      finalCreateStore = compose(
-        appliedMiddleware,
-        ...this.devTools.composers()
-      )(createStore);
-    } else {
-      finalCreateStore = appliedMiddleware(createStore);
-    }
-
-    const store = finalCreateStore(this.reducers, initialState);
-
-    if (this.reloader) {
-      this.reloader(store);
-    }
-    return store;
+    const enhancer = applyMiddleware(...middlewares);
+    return createStore(this.reducers, initialState, enhancer);
   }
 }

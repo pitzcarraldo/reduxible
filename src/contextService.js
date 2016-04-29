@@ -89,8 +89,7 @@ export function reducer(state = { initialized: {} }, { type, payload }) {
       return { ...state, initialized: toggleKeys(state.initialized, payload.keys, true) };
     case INITIALIZE_FAILED:
       return { ...state, initialized: toggleKeys(state.initialized, payload.keys, false) };
-    case REMOVE_REQUEST:
-    {
+    case REMOVE_REQUEST: {
       const nextState = { ...state };
       delete nextState.req;
       return nextState;
