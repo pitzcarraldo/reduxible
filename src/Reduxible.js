@@ -1,6 +1,6 @@
 import ReduxibleConfig from './ReduxibleConfig';
-import StoreFactory from './StoreFactoryImpl';
-import RouterFactory from './RouterFactory';
+import StoreFactory from './store/StoreFactory';
+import RouterFactory from './router/RouterFactory';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import { routerMiddleware } from 'react-router-redux';
 import warning from './warning';
@@ -8,8 +8,8 @@ import warning from './warning';
 export default class Reduxible {
   constructor(options = {}) {
     this.config = new ReduxibleConfig(options.config || options);
-    this.routerFactory = new RouterFactory(options);
     this.storeFactory = new StoreFactory({ ...options, useDevTools: this.config.useDevTools() });
+    this.routerFactory = new RouterFactory(options);
   }
 
   server() {

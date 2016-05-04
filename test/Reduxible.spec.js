@@ -251,8 +251,8 @@ describe('Reduxible', () => {
       process.env.NODE_ENV = 'production';
       delete require.cache[require.resolve('../src/ReduxibleRouterImpl')];
       delete require.cache[require.resolve('../src/StoreFactoryImpl')];
-      require('../src/ReduxibleRouterImpl');
-      require('../src/StoreFactoryImpl');
+      require('../src/router/ReduxibleRouterImpl');
+      require('../src/store/StoreFactoryImpl');
     });
 
     it('should call base (StoreFactory|ReduxibleRouter) Impl.', async(done) => {

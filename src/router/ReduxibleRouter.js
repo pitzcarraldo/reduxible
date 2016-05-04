@@ -6,8 +6,8 @@ import RouterContext from 'react-router/lib/RouterContext';
 import match from 'react-router/lib/match';
 import Provider from 'react-redux/lib/components/Provider';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { preInitialize, removeRequest } from './contextService';
-import warning from './warning';
+import { preInitialize, removeRequest } from '../contextService';
+import warning from '../warning';
 
 
 export default class ReduxibleRouter {

@@ -1,9 +1,15 @@
-import ReduxibleRouter from './ReduxibleRouterImpl';
-
 export default class RouterFactory {
   constructor(options = {}) {
     this.options = options;
     this.validate();
+    this.Router = this.getRouter();
+  }
+
+  getRouter() {
+    if (this.options.config.isDevelopment()) {
+      return require('./DevReduxibleRouter');
+    }
+    return require('./ReduxibleRouter');
   }
 
   validate() {
@@ -25,11 +31,11 @@ export default class RouterFactory {
   }
 
   createRouter(history, store) {
-    return new ReduxibleRouter({ ...this.options, history, store });
+    return new this.Router({ ...this.options, history, store });
   }
 
   renderContainer() {
     const { container, extras } = this.options;
-    return ReduxibleRouter.renderComponent({ container, extras });
+    return this.Router.renderComponent({ container, extras });
   }
 }
