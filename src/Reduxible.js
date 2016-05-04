@@ -1,5 +1,5 @@
 import ReduxibleConfig from './ReduxibleConfig';
-import StoreFactory from './StoreFactory';
+import StoreFactory from './StoreFactoryImpl';
 import RouterFactory from './RouterFactory';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import { routerMiddleware } from 'react-router-redux';

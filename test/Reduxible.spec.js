@@ -227,5 +227,40 @@ describe('Reduxible', () => {
       expect(container.innerHTML).to.not.be.empty();
       done();
     });
+
+    it('should render client element with Devtools to container', async (done) => {
+      const options = mockOptions;
+      options.config = {
+        server: false,
+        development: true,
+        devTools: <div>DevTools</div>
+      };
+      const reduxible = new Reduxible(options);
+      const container = document.createElement('div');
+      await reduxible.client({}, container);
+      expect(container.innerHTML).to.not.be.empty();
+      done();
+    });
+  });
+
+  describe('production env', () => {
+    require('jsdom-global')();
+
+    before(() => {
+      delete process.env.NODE_ENV;
+      process.env.NODE_ENV = 'production';
+      delete require.cache[require.resolve('../src/ReduxibleRouterImpl')];
+      delete require.cache[require.resolve('../src/StoreFactoryImpl')];
+      require('../src/ReduxibleRouterImpl');
+      require('../src/StoreFactoryImpl');
+    });
+
+    it('should call base (StoreFactory|ReduxibleRouter) Impl.', async(done) => {
+      const reduxible = new Reduxible(mockOptions);
+      const container = document.createElement('div');
+      await reduxible.client({}, container);
+      expect(container.innerHTML).to.not.be.empty();
+      done();
+    });
   });
 });

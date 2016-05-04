@@ -1,4 +1,4 @@
-import ReduxibleRouter from './ReduxibleRouter';
+import ReduxibleRouter from './ReduxibleRouterImpl';
 
 export default class RouterFactory {
   constructor(options = {}) {
@@ -25,7 +25,7 @@ export default class RouterFactory {
   }
 
   createRouter(history, store) {
-    return new ReduxibleRouter(this.options, history, store);
+    return new ReduxibleRouter({ ...this.options, history, store });
   }
 
   renderContainer() {

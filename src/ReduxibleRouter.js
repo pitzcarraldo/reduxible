@@ -11,12 +11,20 @@ import warning from './warning';
 
 
 export default class ReduxibleRouter {
-  constructor(options, history, store) {
-    this.routes = options.routes;
-    this.container = options.container;
-    this.errorContainer = options.errorContainer;
-    this.devTools = options.devTools;
-    this.extras = options.extras;
+  constructor(options) {
+    const {
+      routes,
+      container,
+      errorContainer,
+      extras,
+      history,
+      store
+    } = options;
+
+    this.routes = routes;
+    this.container = container;
+    this.errorContainer = errorContainer;
+    this.extras = extras;
     this.history = syncHistoryWithStore(history, store);
     this.store = store;
   }
@@ -52,19 +60,6 @@ export default class ReduxibleRouter {
     } catch (error) {
       warning(error);
       router = this.provide(this.getRouter({}, this.routes, this.history));
-    }
-    ReactDOM.render(router, container, callback);
-  }
-
-  async renderClientWithDevTools(container, callback) {
-    let router;
-    try {
-      window.React = React;
-      const [, renderProps] = await this.route(this.routes, this.history, this.getLocation());
-      router = this.provide(this.getRouterWithDevTools(renderProps));
-    } catch (error) {
-      warning(error);
-      router = this.provide(this.getRouterWithDevTools({}, this.routes, this.history));
     }
     ReactDOM.render(router, container, callback);
   }
@@ -126,12 +121,4 @@ export default class ReduxibleRouter {
     return <Router {...renderProps} routes={routes} history={history} />;
   }
 
-  getRouterWithDevTools(renderProps, routes, history) {
-    const DevTools = this.devTools;
-    return (
-      <div>
-        {this.getRouter(renderProps, routes, history)} <DevTools />
-      </div>
-    );
-  }
 }
