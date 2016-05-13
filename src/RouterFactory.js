@@ -7,12 +7,13 @@ export default class RouterFactory {
   }
 
   validate() {
-    if (typeof this.options.container !== 'function') {
+    if (this.options.universal && typeof this.options.container !== 'function') {
       throw new Error(
         'A container should to be a react component. Please check your configurations.'
       );
     }
-    if (this.options.errorContainer && typeof this.options.errorContainer !== 'function') {
+    if (this.options.universal &&
+      this.options.errorContainer && typeof this.options.errorContainer !== 'function') {
       throw new Error(
         'A errorContainer has to be a react component. Please check your configurations.'
       );
