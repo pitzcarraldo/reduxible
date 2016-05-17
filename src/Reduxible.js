@@ -9,7 +9,7 @@ export default class Reduxible {
   constructor(options = {}) {
     this.config = new ReduxibleConfig(options.config || options);
     this.storeFactory = new StoreFactory({ ...options, useDevTools: this.config.useDevTools() });
-    this.routerFactory = new RouterFactory(options);
+    this.routerFactory = new RouterFactory({ ...options, config: this.config });
   }
 
   server() {
@@ -75,9 +75,5 @@ export default class Reduxible {
     );
     const router = this.routerFactory.createRouter(history, store);
     router.renderClient(container, callback);
-
-    if (this.config.useDevTools()) {
-      router.renderClientWithDevTools(container, callback);
-    }
   }
 }

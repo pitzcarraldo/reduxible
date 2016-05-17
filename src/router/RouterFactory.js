@@ -6,19 +6,26 @@ export default class RouterFactory {
   }
 
   getRouter() {
-    if (this.options.config.isDevelopment()) {
+    if (process.env.NODE_ENV !== 'production') {
       return require('./DevReduxibleRouter');
     }
     return require('./ReduxibleRouter');
   }
 
   validate() {
-    if (typeof this.options.container !== 'function') {
+    if (
+      this.options.config.isUniversal() &&
+      typeof this.options.container !== 'function'
+    ) {
       throw new Error(
         'A container should to be a react component. Please check your configurations.'
       );
     }
-    if (this.options.errorContainer && typeof this.options.errorContainer !== 'function') {
+    if (
+      this.options.config.isUniversal() &&
+      this.options.errorContainer &&
+      typeof this.options.errorContainer !== 'function'
+    ) {
       throw new Error(
         'A errorContainer has to be a react component. Please check your configurations.'
       );

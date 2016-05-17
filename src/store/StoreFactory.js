@@ -17,7 +17,7 @@ export default class StoreFactory {
   }
 
   getCreateStore() {
-    if (this.options.config.isDevelopment()) {
+    if (process.env.NODE_ENV !== 'production') {
       return require('./createDevStore');
     }
     return require('./createStore');

@@ -7,7 +7,6 @@ import match from 'react-router/lib/match';
 import Provider from 'react-redux/lib/components/Provider';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { preInitialize, removeRequest } from '../contextService';
-import warning from '../warning';
 
 
 export default class ReduxibleRouter {
@@ -20,7 +19,7 @@ export default class ReduxibleRouter {
       history,
       store
     } = options;
-
+    this.options = options;
     this.routes = routes;
     this.container = container;
     this.errorContainer = errorContainer;
@@ -58,7 +57,6 @@ export default class ReduxibleRouter {
       const [, renderProps] = await this.route(this.routes, this.history, this.getLocation());
       router = this.provide(this.getRouter(renderProps));
     } catch (error) {
-      warning(error);
       router = this.provide(this.getRouter({}, this.routes, this.history));
     }
     ReactDOM.render(router, container, callback);

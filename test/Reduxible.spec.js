@@ -1,5 +1,6 @@
 import { expect, spy } from 'cafeteria';
 import React from 'react';
+import devTools from 'reduxible-devtools';
 import combineReduxibleReducers from '../src/combineReduxibleReducers';
 import Reduxible from '../src/Reduxible';
 import httpMocks from 'node-mocks-http';
@@ -204,6 +205,10 @@ describe('Reduxible', () => {
   describe('client', () => {
     require('jsdom-global')();
 
+    before(() => {
+      delete process.env.NODE_ENV;
+    });
+
     it('should returns false if devTools is undefined', () => {
       const reduxible = new Reduxible(mockOptions);
       expect(reduxible.client).to.be.a('function');
@@ -220,47 +225,36 @@ describe('Reduxible', () => {
       expect(() => reduxible.client()).to.throw(Error);
     });
 
-    it('should render client element to container', async (done) => {
-      const reduxible = new Reduxible(mockOptions);
-      const container = document.createElement('div');
-      await reduxible.client({}, container);
-      expect(container.innerHTML).to.not.be.empty();
-      done();
+    it('should render client element to container', async(done) => {
+      try {
+        process.env.NODE_ENV = 'production';
+        const reduxible = new Reduxible(mockOptions);
+        const container = document.createElement('div');
+        await reduxible.client({}, container);
+        expect(container.innerHTML).to.not.be.empty();
+        done();
+      } catch (error) {
+        done(error);
+      }
     });
 
-    it('should render client element with Devtools to container', async (done) => {
-      const options = mockOptions;
-      options.config = {
-        server: false,
-        development: true,
-        devTools: <div>DevTools</div>
-      };
-      const reduxible = new Reduxible(options);
-      const container = document.createElement('div');
-      await reduxible.client({}, container);
-      expect(container.innerHTML).to.not.be.empty();
-      done();
-    });
-  });
-
-  describe('production env', () => {
-    require('jsdom-global')();
-
-    before(() => {
-      delete process.env.NODE_ENV;
-      process.env.NODE_ENV = 'production';
-      delete require.cache[require.resolve('../src/ReduxibleRouterImpl')];
-      delete require.cache[require.resolve('../src/StoreFactoryImpl')];
-      require('../src/router/ReduxibleRouterImpl');
-      require('../src/store/StoreFactoryImpl');
-    });
-
-    it('should call base (StoreFactory|ReduxibleRouter) Impl.', async(done) => {
-      const reduxible = new Reduxible(mockOptions);
-      const container = document.createElement('div');
-      await reduxible.client({}, container);
-      expect(container.innerHTML).to.not.be.empty();
-      done();
+    it('should render client element with DevTools to container', async(done) => {
+      try {
+        process.env.NODE_ENV = 'development';
+        const options = {
+          ...mockOptions,
+          server: false,
+          development: true,
+          devTools: devTools(true)
+        };
+        const reduxible = new Reduxible(options);
+        const container = document.createElement('div');
+        await reduxible.client({}, container);
+        expect(container.innerHTML).to.not.be.empty();
+        done();
+      } catch (error) {
+        done(error);
+      }
     });
   });
 });

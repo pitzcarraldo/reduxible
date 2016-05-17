@@ -11,6 +11,7 @@ export default class DevReduxibleRouter extends ReduxibleRouter {
 
   async renderClient(container, callback) {
     super.renderClient(container, callback);
+    console.log(this);
     if (this.options.config.useDevTools()) {
       let router;
       try {
