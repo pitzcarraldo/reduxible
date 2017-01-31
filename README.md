@@ -2,7 +2,7 @@
 
 ## The Quick and Easy way to make React + Redux Applications
 
-[![Build Status](https://travis-ci.org/reduxible/reduxible.svg)](https://travis-ci.org/reduxible/reduxible)
+[![Build Status](https://travis-ci.org/Pitzcarraldo/reduxible.svg)](https://travis-ci.org/reduxible/reduxible)
 [![Coverage Status](https://coveralls.io/repos/github/reduxible/reduxible/badge.svg?branch=master)](https://coveralls.io/github/reduxible/reduxible?branch=master)
 [![npm version](https://img.shields.io/npm/v/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
 [![npm downloads](https://img.shields.io/npm/dm/reduxible.svg?style=flat-square)](https://www.npmjs.com/package/reduxible)
