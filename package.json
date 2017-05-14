@@ -99,7 +99,7 @@
     "istanbul-coveralls": "^1.0.3",
     "jsdom": "^8.0.2",
     "jsdom-global": "^1.6.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.4.1",
     "node-mocks-http": "^1.5.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
