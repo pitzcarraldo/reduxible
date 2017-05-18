@@ -1,3 +1,5 @@
+## This project is not maintained anymore. Try to use [Next.js](https://github.com/zeit/next.js/) which is Awesome framework for building Fullstack React.js Apps.
+
 # [Reduxible](http://reduxible.js.org/)
 
 ## The Quick and Easy way to make React + Redux Applications
