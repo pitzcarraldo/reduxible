@@ -110,7 +110,7 @@
     "rimraf": "^2.3.4",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "webpack": "^1.12.11"
+    "webpack": "^2.4.1"
   },
   "engines": {
     "node": "4.x || 5.x",
